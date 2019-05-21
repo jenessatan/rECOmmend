@@ -1,0 +1,38 @@
+{
+  "name": "recommend",
+  "version": "1.0.0",
+  "description": "Full stack React app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jenessatan/rECOmmend.git"
+  },
+  "keywords": [
+    "react"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jenessatan/rECOmmend/issues"
+  },
+  "homepage": "https://github.com/jenessatan/rECOmmend#readme",
+  "devDependencies": {
+    "concurrently": "^4.1.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.13.0",
+    "nodemon": "^1.19.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.0",
+    "pg": "^7.11.0"
+  }
+}

@@ -2,7 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 
-// add routes
-// e.g. router.use(users)
+router.use('/account', require('./account'));
+router.use('/post', require('./post'));
+router.use('/product', require('./product'));
+router.use('/search', require('./search'));
 
 module.exports = router;

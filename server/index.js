@@ -17,7 +17,9 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
   res.send('This is rECOmmend!');
-});
+ });
+
+app.use('/api', require('./api'));
 
 app.listen(PORT, () => {
   if (ENV === 'development') {

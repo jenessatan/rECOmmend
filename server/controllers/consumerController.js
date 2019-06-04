@@ -64,7 +64,8 @@ consumerController.deleteById = (req, res) => {
 };
 
 consumerController.login = (req, res) => {
-  Consumer.login(req.params.email, req.params.password)
+  console.log(req.body.email);
+  Consumer.login(req.body.email, req.body.password)
     .then((consumers) => {
       if (consumers) {
         res.json({

@@ -75,7 +75,7 @@ consumerController.login = (req, res) => {
       } else {
         res.json({
           success: !!consumers,
-          message: `Login failed for ${req.params.email}, please try again`
+          message: `Login failed for ${req.body.email}, please try again`
         });
       }
     })

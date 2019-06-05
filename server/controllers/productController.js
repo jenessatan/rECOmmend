@@ -5,7 +5,7 @@ const Products = require('../models/products');
 const productController = {};
 
 productController.findByCategory = (req, res) => {
-  Products.findByCategory(req.params.category)
+  Products.findByCategory(req.body.category)
     .then((products) => {
       if (products && products.length > 0) {
         res.json({
@@ -26,7 +26,7 @@ productController.findByCategory = (req, res) => {
 };
 
 productController.findBySeller = (req, res) => {
-  Products.findBySeller(req.params.business)
+  Products.findBySeller(req.body.business)
     .then((products) => {
       if (products && products.length > 0) {
         res.json({

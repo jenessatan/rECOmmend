@@ -21,9 +21,33 @@ rewardController.findByConsumerId = (req, res) => {
     });
 };
 
+rewardController.deductPoints = (req, res) => {
+  Reward.deductPoints(req.body.points, req.body.consumerID)
+    .then(() => {
+      res.json({ message: 'this apparently worked' });
+    })
+    .catch((err) => {
+      console.log('error message');
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });
+};
 
-
-
+rewardController.addNewRedemption = (req, res) => {
+  const payload = {
+    rewardname: req.body.rewardname,
+    businessid: req.body.businessid
+  };
+  Reward.addNewRedemption(req.body.consumerID, payload)
+    .then(() => {
+      res.json({ message: 'inserted a new reward redemption' });
+    })
+    .catch((err) => {
+      console.log('error message');
+      console.log(err);
+      res.status(500).json({ error: `${error}` });
+    });
+};
 
 // consumerController.editById = (req, res) => {
 //  console.log('***payload***');
@@ -46,7 +70,6 @@ rewardController.findByConsumerId = (req, res) => {
 //      res.status(500).json({ error: `${error}` });
 //    });
 // };
-
 
 
 module.exports = rewardController;

@@ -49,7 +49,8 @@ class Login extends Component {
                 if(res.success === true) {
                     // alert(res.message)
                     window.localStorage.setItem('user', this.state.username);
-                    console.log(window.localStorage.getItem('user'));
+                    window.localStorage.setItem('user-type', 'consumer');
+                    //console.log(window.localStorage.getItem('user'));
                     this.setState({isLoggedIn: true})
                 } else {
                     alert(res.message)
@@ -69,9 +70,10 @@ class Login extends Component {
             .then((res) => res.json())
             .then((res) => {
                 if(res.success === true) {
-                    // alert(res.message)
+                    //console.log(res.message);
                     window.localStorage.setItem('user', this.state.username);
-                    console.log(window.localStorage.getItem('user'));
+                    window.localStorage.setItem('user-type', 'business');
+                    //console.log(window.localStorage.getItem('user'));
                     this.setState({isLoggedIn: true})
                 } else {
                     alert(res.message)

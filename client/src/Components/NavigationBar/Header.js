@@ -10,13 +10,13 @@ class Header extends Component {
       <NavbarBrand href='/' className='navBarBrand'>rECOmmend</NavbarBrand>
       <Nav>
         <NavItem className='navItem'>
-          <NavLink className='navLink' activeClassName='active' href='/products'>Products</NavLink>
+          <NavLink className='navLink' href='/products'>Products</NavLink>
         </NavItem>
         <NavItem className='navItem'>
-          <NavLink className='navLink' activeClassName='active' href='/business'>Businesses</NavLink>
+          <NavLink className='navLink' href='/business'>Businesses</NavLink>
         </NavItem>
         <NavItem className='navItem'>
-          <NavLink className='navLink' activeClassName='active' href='/profile'>Profile</NavLink>
+          <NavLink className='navLink' href='/profile'>Profile</NavLink>
         </NavItem>
       </Nav>
     </Navbar>

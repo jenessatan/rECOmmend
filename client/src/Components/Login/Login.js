@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Input, Button, Form, FormGroup, Label} from 'reactstrap';
+import {Redirect} from 'react-router-dom'
 
 class Login extends Component {
     constructor(props){
@@ -7,6 +8,7 @@ class Login extends Component {
         this.state ={
             username:'',
             password:'',
+            isLoggedIn: false
         }
     }
 
@@ -18,8 +20,12 @@ class Login extends Component {
         this.setState({username: e.target.value})
     };
 
+    redirect = () => {
+        this.context.router.history.push('/profile')
+    }
+
     login = () => {
-        fetch(`./api/consumers/${this.state.username}&${this.state.password}`, {
+        fetch(`./api/auth`, {
             method: 'post',
             headers: { 'Content-Type': 'application/json'},
             body: JSON.stringify({
@@ -30,7 +36,10 @@ class Login extends Component {
             .then((res) => res.json())
             .then((res) => {
                 if(res.success === true) {
-                    alert(res.message)
+                    // alert(res.message)
+                    window.localStorage.setItem('user', this.state.username);
+                    console.log(window.localStorage.getItem('user'));
+                    this.setState({isLoggedIn: true})
                 } else {
                     alert(res.message)
                 }
@@ -38,7 +47,10 @@ class Login extends Component {
     };
 
     render() {
-        return (
+            if(this.state.isLoggedIn === true || !!window.localStorage.user){
+                return (<Redirect to='/profile'/>)
+            } else {
+                return(
             <Form inline>
                 <FormGroup>
                     <Label for="exampleEmail" hidden>Email</Label>
@@ -54,7 +66,7 @@ class Login extends Component {
                 {' '}
                 <Button onClick={this.login}>Submit</Button>
             </Form>
-        )
+                )}
     }
 }
 

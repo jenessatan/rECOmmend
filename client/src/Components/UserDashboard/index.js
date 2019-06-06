@@ -1,18 +1,27 @@
 import React, { Component } from 'react';
 import ConsumerPosts from './ConsumerActivity';
-import {Jumbotron} from 'reactstrap';
+import {Jumbotron, Button} from 'reactstrap';
+import {Redirect} from 'react-router-dom';
 import './UserDashboard.scss';
 
 
 class UserDashboard extends Component{
     state = {
         consumerPosts: [],
+        isLoggedIn: !!window.localStorage.getItem('user')
     };
 
+    logout = () => {
+        window.localStorage.clear();
+        this.setState({isLoggedIn: false})
+    }
+
     render() {
+        if(this.state.isLoggedIn){
         return (
             <div className="dashboard">
                 <Jumbotron className='subHero'></Jumbotron>
+                <Button onClick={this.logout}>Logout</Button>
                 <div className="about-user">
                     <div className="user card col-md-4">
                         Profile
@@ -27,10 +36,13 @@ class UserDashboard extends Component{
                 </div>
             </div>
         );
+        } else {
+            return (<Redirect to='/'/>)
+        }
     }
 
     componentDidMount() {
-        fetch('http://localhost:5000/api/posts/CID1')
+        fetch('./api/posts/CID1')
             .then(res => res.json())
             .then((data) => {
                 console.log(data.data);

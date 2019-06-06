@@ -6,15 +6,31 @@ Reward.findByConsumerId = id => db.result('SELECT redeems_reward.rewardname, red
 
 Reward.deductPoints = (pointVal, consumerID) => db.none('UPDATE consumer SET points = points - $1 WHERE consumerID = $2', [pointVal, consumerID]);
 
-Reward.addNewRedemption = (consumerID, payload) => {
-  const { rewardname, businessid } = payload;
-  return db.none('INSERT INTO redeems_reward (rewardname, businessid, date, consumerid) VALUES ($1, $2, CURRENT_DATE, $3)', [rewardname, businessid, consumerID]);
+Reward.addNewRedemption = (payload) => {
+	return db.tx(t => {
+		return t.batch([
+			t.none('INSERT INTO redeems_reward VALUES ($/rewardname/, $/businessid/, CURRENT_DATE, $/consumerid/)', 
+				{rewardname: payload.rewardName,
+				 businessid: payload.businessID,
+				 consumerid: payload.consumerID
+				 }),
+			t.one('UPDATE consumer SET points = points - $/points/ WHERE consumerID = $/consumerid/ RETURNING points', 
+				{points: payload.points,
+				 consumerid: payload.consumerID
+				 })
+		]);
+	})
+	.then(response => {
+		return (response[1].points);
+	})
+	.catch(error => {
+		throw new Error(error);
+	});
 };
-// Return one consumer from email,password
-// Consumer.login = (email, password) => db.oneOrNone(
-//  'Select * from consumer where email = $1 and password = $2',
-//  [email, password]
-// );
+
+Reward.findByPoints = (points) => {
+	return db.any('SELECT businessid, name, rewardname, pointvalue FROM offers_reward JOIN business USING (businessid) WHERE pointvalue <= $1', [points]);
+};
 
 module.exports = Reward;
 

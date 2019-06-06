@@ -94,20 +94,20 @@ class ProductSearch extends Component{
                                 <Row>
                                     <Col>
                                         <Label className="check-label">Display</Label>
-                                    <FormGroup check inline>
-                                        <Label check className="check-label">
-                                            <Input type="checkbox" />Product Photo
-                                        </Label>
-                                        <Label check className="check-label">
-                                            <Input type="checkbox" />Name
-                                        </Label>
-                                        <Label check className="check-label">
-                                            <Input type="checkbox" />Description
-                                        </Label>
-                                        <Label check className="check-label">
-                                            <Input type="checkbox" />Price
-                                        </Label>
-                                    </FormGroup>
+                                        <FormGroup check inline>
+                                            <Label check className="check-label">
+                                                <Input type="checkbox" />Product Photo
+                                            </Label>
+                                            <Label check className="check-label">
+                                                <Input type="checkbox" />Name
+                                            </Label>
+                                            <Label check className="check-label">
+                                                <Input type="checkbox" />Description
+                                            </Label>
+                                            <Label check className="check-label">
+                                                <Input type="checkbox" />Price
+                                            </Label>
+                                        </FormGroup>
                                     </Col>
                                 </Row>
                                 <BusinessSearch/>
@@ -116,26 +116,26 @@ class ProductSearch extends Component{
                     </FormGroup>
                 </Form>
                 <div className='results'>
-                <Row fluid className='featuredRow'>
-        <Col sm='2'>
-          <PostItem title='Test Feature' author='Peter Parker' />
-        </Col>
-        <Col sm='2'>
-          <PostItem title='Test Feature' author='Peter Parker' />
-        </Col>
-        <Col sm='2'>
-          <PostItem title='Test Feature' author='Peter Parker' />
-        </Col>
-        <Col sm='2'>
-          <PostItem title='Test Feature' author='Peter Parker' />
-        </Col>
-        <Col sm='2'>
-          <PostItem title='Test Feature' author='Peter Parker' />
-        </Col>
-        <Col sm='2'>
-          <PostItem title='Test Feature' author='Peter Parker' />
-        </Col>
-      </Row>
+                    <Row fluid className='featuredRow'>
+                        <Col sm='2'>
+                            <PostItem title='Test Feature' author='Peter Parker' />
+                        </Col>
+                        <Col sm='2'>
+                            <PostItem title='Test Feature' author='Peter Parker' />
+                        </Col>
+                        <Col sm='2'>
+                            <PostItem title='Test Feature' author='Peter Parker' />
+                        </Col>
+                        <Col sm='2'>
+                            <PostItem title='Test Feature' author='Peter Parker' />
+                        </Col>
+                        <Col sm='2'>
+                            <PostItem title='Test Feature' author='Peter Parker' />
+                        </Col>
+                        <Col sm='2'>
+                            <PostItem title='Test Feature' author='Peter Parker' />
+                        </Col>
+                    </Row>
                 </div>
             </Container>
         );

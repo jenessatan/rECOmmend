@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css?family=Domine|Roboto&display=swap');
+
+.body {
+  font-family: "Roboto", sans-serif;
+}
+
+.App {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+  padding: 0
+}
+
+.centered{
+  padding: 0;
+}
+
+.subHero {
+  height: 40vh;
+}
+
+.Hero {
+  width: 100%;
+  position: relative;
+  background-size: cover;
+  height: 80vh;
+  padding: 0
+}
+.Hero .content {
+  position: relative;
+  z-index: 5;
+  width: 500px;
+  left: 5vw;
+  top: 10vw;
+}
+.Hero .content .logo {
+  max-width: 400px;
+  display: block;
+  position: relative;
+  left: -5px;
+}
+.Hero .content p{
+  width: 100%;
+  color: rgb(255,255,255)
+}
+
+.Hero .content h1{
+  width: 100%;
+  color: rgb(255,255,255)
+}
+.Hero .overlay {
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #221f1f 0%, rgba(34, 31, 31, 0) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #221f1f 0%, rgba(34, 31, 31, 0) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6000000', endColorstr='#00000000',GradientType=0 );
+  /* IE6-9 */
+  height: 100%;
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  left: 0;
+  width: 100%;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+
+.Modal {
+  background: #3E363F;
+  border-radius: 2px;
+  padding: 20px;
+  width: 200px;
+}
+
+.navBarBrand {
+  font-family: 'Domine', serif;
+  font-size: 25px;
+}
+
+.featured{
+  font-family: 'Domine', serif;
+  font-size: 23px;
+  text-align: left;
+  padding: 15px 0 0 10px;
+}
+
+.featuredRow {
+  width: 100%;
+  padding: 20px 0 20px 20px;
+}
+
+.navItem {
+  font-size: 23px;
+  font-weight: lighter
+}
+
+.navItem .navLink {
+  margin: 0 15px 0 15px;
+  display: block;
+  color: black;
+}
+
+.navItem .navLink:after {
+  display:block;
+  content: '';
+  border-bottom: solid 2px #2c76b3;  
+  transform: scaleX(0);  
+  transition: transform 150ms ease-in-out;
+}
+
+.navItem .navLink:hover:after{
+  transform: scaleX(1);
+  width: 100%
+}
+
+.cardPostTitle {
+  font-family:'Domine', serif;
+  font-size: 20px
+}
+
+.cardPostSubtitle {
+  font-size: 18px;
+  font-weight: lighter
+}
+
+.search {
+  margin: auto;
+  width: 50%;
+}

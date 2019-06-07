@@ -1,42 +1,93 @@
 import React, { Component } from 'react';
-import ConsumerPosts from './ConsumerActivity';
-import {Jumbotron} from 'reactstrap';
+import { Card, CardBody, CardDeck, CardText, CardTitle, Jumbotron} from 'reactstrap';
 import './UserDashboard.scss';
-
+import ConsumerPosts from './ConsumerActivity';
+import UserInfo from './UserInfo';
 
 class UserDashboard extends Component{
     state = {
+    	// TODO: Change to check local login
+    	consumerEmail: '',
+    	consumerName: '',
+    	consumerPassword: '',
         consumerPosts: [],
+        consumerPoints: 0,
     };
 
     render() {
         return (
             <div className="dashboard">
-                <Jumbotron className='subHero'></Jumbotron>
-                <div className="about-user">
-                    <div className="user card col-md-4">
-                        Profile
+                <Jumbotron className='subHero' style={{backgroundImage: 'url('+require('../../Assets/evening.png')+')'}}>
+                </Jumbotron>
+                	<div class="row align-items-start" className="about-user">
+                	<div class="col">
+                	<CardDeck>
+                    	<Card>
+                        	<CardBody>
+                        		<CardTitle class="px-1">
+                        			<h2>Profile</h2>
+                        		</CardTitle>
+                        		<CardText>
+                        			<UserInfo name={this.state.consumerName} email={this.state.consumerEmail} password={this.state.consumerPassword}/>
+                        		</CardText>
+                        	</CardBody>
+                        </Card>
+                    
+                    	<Card style={{maxWidth: 400}}>
+                        	<CardBody>
+	                    		<CardTitle>
+	                        		<h2>Points</h2>
+	                        	</CardTitle>                        	
+                        		<CardText>
+                        			{ this.state.consumerPoints }
+                        		</CardText>
+                        	</CardBody>
+                        </Card>
+                    </CardDeck>
                     </div>
-                    <div className="user card col-md-4">
-                        Points
-                    </div>
-                    <div className="user card col-md-4">
-                        Activity
-                        <ConsumerPosts posts={this.state.consumerPosts}/>
-                    </div>
+                </div>
+                <div class="row justify-items-center mx-3 my-6">
+                	<div class="col">
+                		<CardDeck>
+                    	<Card>
+                    		<CardBody>
+	                    		<CardTitle>
+                    				<h2>Your recent posts</h2>
+                    			</CardTitle>                    		
+                    			<CardText>
+                    				<ConsumerPosts posts={this.state.consumerPosts}/>
+                    			</CardText>
+                    		</CardBody>
+                    	</Card>
+                    </CardDeck>
+                	</div>
                 </div>
             </div>
         );
     }
 
     componentDidMount() {
+    	fetch('http://localhost:5000/api/account/iamgroot@iamgroot.com')
+    		.then(res => res.json())
+    		.then( (response) => {
+    			this.setState({ consumerPoints: response.data.points});
+    			this.setState({ consumerEmail: response.data.email});
+    			this.setState({ consumerPassword: response.data.password});
+    			this.setState({ consumerName: response.data.name});
+    			console.log('initial call');
+    			console.log(this.state);
+    		})
+    		.catch(error => {
+    			console.log(error);
+    		});
         fetch('http://localhost:5000/api/posts/CID1')
             .then(res => res.json())
             .then((data) => {
-                console.log(data.data);
                 this.setState({ consumerPosts: data.data });
             })
-            .catch(console.log);
+            .catch(error => {
+            	console.log(error)
+            });
     }
 }
 

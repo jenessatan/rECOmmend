@@ -4,8 +4,8 @@ const consumerController = {};
 
 // TODO: Might want to find a better way to handle account not found
 
-consumerController.findById = (req, res) => {
-  Consumer.findById(req.params.accountid)
+consumerController.findByEmail = (req, res) => {
+  Consumer.findByEmail(req.params.email)
     .then((response) => {
   	if (response) {
   		res.json({
@@ -13,7 +13,7 @@ consumerController.findById = (req, res) => {
       		data: response
     	});
       } else {
-        throw new Error(`Account ${req.params.accountid} not found`);
+        throw new Error(`Account ${req.params.email} not found`);
       }
     })
     .catch((err) => {

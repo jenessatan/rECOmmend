@@ -6,7 +6,6 @@ Consumer.deleteById = id => db.result(
   'DELETE FROM consumer WHERE consumerid = $1', [id]
 );
 
-// TODO: Change to db.tx
 Consumer.editById = (id, payload) => db.result('UPDATE consumer SET name = $/name/, email = $/email/ WHERE consumerid = $/id/',
   {
     name: payload.name,
@@ -14,9 +13,9 @@ Consumer.editById = (id, payload) => db.result('UPDATE consumer SET name = $/nam
     id
   });
 
-Consumer.findById = id => db.oneOrNone(
-  'SELECT * FROM consumer WHERE consumerid = $1',
-  [id]
+Consumer.findByEmail = email => db.oneOrNone(
+  'SELECT * FROM consumer WHERE email = $1',
+  [email]
 );
 
 // Return one consumer from email,password

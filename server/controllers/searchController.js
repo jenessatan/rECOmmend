@@ -31,6 +31,24 @@ searchController.findBusiness = (req, res) => {
  // });
 };
 
+searchController.findAllProducts = (req, res) => {
+    Search.findAllProducts()
+        .then((response) => {
+            if (response){
+                res.json({
+                    message: 'Success',
+                    data: response.rows
+                });
+            } else {
+                throw new Error (``);
+            }
+        })
+        .catch((err) => {
+            res.status(500).json({ error: `${err}`});
+        });
+};
+
+
 searchController.findProduct = (req, res) => {
 //	console.log('***payload***');
 //	console.log(req.body);

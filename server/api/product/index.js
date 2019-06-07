@@ -1,11 +1,18 @@
 const router = require('express').Router();
 const productController = require('../../controllers/productController');
+const searchController = require('../../controllers/searchController');
+
+router.get('/', searchController.findAllProducts);
 
 router.get('/category', productController.findByCategory);
 
+router.post('/results', productController.findByCategoryAndName);
+
 router.get('/soldby', productController.findBySeller);
 
-router.get('/', (req, res) => res.send('test get all products'));
+router.post('/', (req, res)=> {
+	return res.send('test add new product');
+});
 
 router.post('/', (req, res) => res.send('test add new product'));
 

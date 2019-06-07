@@ -25,6 +25,28 @@ productController.findByCategory = (req, res) => {
     });
 };
 
+productController.findByCategoryAndName = (req, res) => {
+  console.log(req.body);
+  Products.findByCategoryAndName(req.body)
+    .then((products) => {
+      if (products && products.length > 0) {
+        res.json({
+          success: !!products,
+          data: products
+        });
+      } else {
+        res.json({
+          success: !!products,
+          data: 'Data unavailable'
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err });
+    });
+};
+
 productController.findBySeller = (req, res) => {
   Products.findBySeller(req.body.business)
     .then((products) => {

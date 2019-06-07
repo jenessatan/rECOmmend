@@ -1,20 +1,16 @@
-var router = require('express').Router();
-const consumerController = require('../../controllers/consumerController');
+const router = require('express').Router();
+const productController = require('../../controllers/productController');
 
-router.get('/', (req, res) => {
-  return res.send('test get all products');
-});
+router.get('/category', productController.findByCategory);
 
-router.post('/', (req, res)=> {
-	return res.send('test add new product');
-});
+router.get('/soldby', productController.findBySeller);
 
-router.put('/:postid', (req, res) => {
-	return res.send('test product put');
-});
-	
-router.delete('/:postid', (req, res) => {
-	return res.send('test product delete');
-});
+router.get('/', (req, res) => res.send('test get all products'));
 
-module.exports=router;
+router.post('/', (req, res) => res.send('test add new product'));
+
+router.put('/:postid', (req, res) => res.send('test product put'));
+
+router.delete('/:postid', (req, res) => res.send('test product delete'));
+
+module.exports = router;

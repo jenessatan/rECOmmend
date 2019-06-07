@@ -66,14 +66,14 @@ class ProductSearch extends Component{
                                             <Label>Product Category</Label>
                                             <Input type="select">
                                                 <option value="*">All Products</option>
-                                                <option value="fashion">Fashion</option>
-                                                <option value="homeGoods">Home Goods</option>
-                                                <option value="organic">Organic</option>
-                                                <option value="personalCare">Personal Care</option>
-                                                <option value="recreation">Recreation</option>
-                                                <option value="recycled">Recycled</option>
-                                                <option value="reusable">Reusable</option>
-                                                <option value="utensils">Utensils</option>
+                                                <option value="CAT1">Fashion</option>
+                                                <option value="CAT4">Home Goods</option>
+                                                <option value="CAT8">Organic</option>
+                                                <option value="CAT3">Personal Care</option>
+                                                <option value="CAT5">Recreation</option>
+                                                <option value="CAT7">Recycled</option>
+                                                <option value="CAT6">Reusable</option>
+                                                <option value="CAT2">Utensils</option>
                                             </Input>
                                         </FormGroup>
                                     </Col>

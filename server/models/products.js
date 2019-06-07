@@ -9,13 +9,11 @@ Products.findByCategory = category => db.query(
 );
 
 Products.findByCategoryAndName = (payload) => {
-  console.log(payload);
-  return db.result(`SELECT $/columns/ FROM products WHERE name LIKE $/input/ AND ProductID in (SELECT ProductID from has_prodcat WHERE prodcatID = $/category/)`,
-  {
-    columns: payload.columns,
-    input: payload.input,
-    category: payload.category.substring(1, payload.category.length-1),
-  })
+  console.log(payload, 'model');
+  const { columns, input, category } = payload;
+  const queryString = `SELECT ` + columns + `, COUNT(*) FROM products WHERE name LIKE '%` + input + `%' AND ProductID in (SELECT ProductID from has_prodcat WHERE prodcatID = '` + category +`') GROUP BY productID`;
+  console.log(queryString);
+  return db.result(queryString);
 };
 
 // Products.findByName = (payload) => {

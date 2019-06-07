@@ -10,7 +10,7 @@ productController.findByCategory = (req, res) => {
       if (products && products.length > 0) {
         res.json({
           success: !!products,
-          data: products
+          data: products,
         });
       } else {
         res.json({
@@ -26,13 +26,12 @@ productController.findByCategory = (req, res) => {
 };
 
 productController.findByCategoryAndName = (req, res) => {
-  console.log(req.body);
   Products.findByCategoryAndName(req.body)
     .then((products) => {
-      if (products && products.length > 0) {
+      if (products && products.rows.length > 0) {
         res.json({
           success: !!products,
-          data: products
+          data: products.rows,
         });
       } else {
         res.json({

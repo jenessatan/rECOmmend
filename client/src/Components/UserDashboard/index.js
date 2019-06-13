@@ -14,13 +14,13 @@ class UserDashboard extends Component{
     logout = () => {
         window.localStorage.clear();
         this.setState({isLoggedIn: false})
-    }
+    };
 
     render() {
         if(this.state.isLoggedIn){
         return (
             <div className="dashboard">
-                <Jumbotron className='subHero'></Jumbotron>
+                <Jumbotron className='subHero'/>
                 <Button onClick={this.logout}>Logout</Button>
                 <div className="about-user">
                     <div className="user card col-md-4">
@@ -45,7 +45,7 @@ class UserDashboard extends Component{
         fetch('./api/posts/CID1')
             .then(res => res.json())
             .then((data) => {
-                console.log(data.data);
+                // console.log(data.data);
                 this.setState({ consumerPosts: data.data });
             })
             .catch(console.log);

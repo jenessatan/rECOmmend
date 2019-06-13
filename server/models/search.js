@@ -9,4 +9,8 @@ Search.findProductAnd = (id, payload) => {
 	description: payload.description});
 };
 
+Search.findAllProducts = () => {
+	return db.result('SELECT * from products');
+};
+
 module.exports = Search;

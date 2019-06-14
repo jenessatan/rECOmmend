@@ -28,7 +28,8 @@ consumerController.editById = (req, res) => {
   console.log(req.body);
   const payload = {
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    password: req.body.password
 	 };
   Consumer.editById(req.params.accountid, payload)
     .then((response) => {

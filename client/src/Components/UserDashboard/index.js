@@ -33,13 +33,17 @@ class UserDashboard extends Component{
                         	</CardBody>
                         </Card>
                     
-                    	<Card style={{maxWidth: 400}}>
+                    	<Card style={{maxWidth: 600}}>
                         	<CardBody>
 	                    		<CardTitle>
 	                        		<h2>Points</h2>
 	                        	</CardTitle>                        	
                         		<CardText>
+                        			Your current points balance:<br />
                         			{ this.state.consumerPoints }
+                        			<br />
+                        			<br />
+                        			Available rewards
                         		</CardText>
                         	</CardBody>
                         </Card>
@@ -62,6 +66,22 @@ class UserDashboard extends Component{
                     </CardDeck>
                 	</div>
                 </div>
+                <div class="row justify-items-center mx-3 my-6">
+                	<div class="col">
+                		<CardDeck>
+                    	<Card>
+                    		<CardBody>
+	                    		<CardTitle>
+                    				<h2>Your rewards history</h2>
+                    			</CardTitle>                    		
+                    			<CardText>
+                    				<ConsumerPosts posts={this.state.consumerPosts}/>
+                    			</CardText>
+                    		</CardBody>
+                    	</Card>
+                    </CardDeck>
+                	</div>
+                </div>                
             </div>
         );
     }

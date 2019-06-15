@@ -25,4 +25,9 @@ Business.login = (email, password) => db.oneOrNone(
   [email, password]
 );
 
+Business.sellsNewProduct = (pid, bid) => db.result(
+  'INSERT INTO sells (productid, businessid) values ($1, $2)',
+  [pid, bid]
+);
+
 module.exports = Business;

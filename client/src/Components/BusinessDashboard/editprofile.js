@@ -150,5 +150,3 @@ class ProfileForm extends Component {
     );
   }
 }
-
-export default ProfileForm;

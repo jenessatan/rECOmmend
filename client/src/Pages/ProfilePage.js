@@ -4,7 +4,10 @@ import BusinessDashboard from '../Components/BusinessDashboard';
 
 
 function ProfilePage() {
+<<<<<<< HEAD
   console.log(window.localStorage.usertype);
+=======
+>>>>>>> profile edit form and update login credential storage
   if(window.localStorage.usertype === 'business') {
     return (
       <BusinessDashboard />

@@ -10,6 +10,9 @@ router.post('/results', productController.findByCategoryAndName);
 
 router.get('/soldby', productController.findBySeller);
 
+//added
+router.post('/new/:businessId', productController.addNewProduct);
+
 router.post('/', (req, res)=> {
 	return res.send('test add new product');
 });

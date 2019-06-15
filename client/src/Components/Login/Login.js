@@ -46,8 +46,6 @@ class Login extends Component {
         })
             .then((res) => res.json())
             .then((res) => {
-            	console.log('******login');
-            	console.log(res);
                 if(res.success === true) {
                     // alert(res.message)
                     window.localStorage.setItem('user', this.state.username);

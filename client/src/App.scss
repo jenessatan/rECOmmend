@@ -104,8 +104,8 @@
 .navItem .navLink:after {
   display:block;
   content: '';
-  border-bottom: solid 2px #2c76b3;  
-  transform: scaleX(0);  
+  border-bottom: solid 2px #2c76b3;
+  transform: scaleX(0);
   transition: transform 150ms ease-in-out;
 }
 
@@ -116,15 +116,53 @@
 
 .cardPostTitle {
   font-family:'Domine', serif;
-  font-size: 20px
+  font-size: 15px
 }
 
 .cardPostSubtitle {
-  font-size: 18px;
+  font-size: 12px;
   font-weight: lighter
 }
 
 .search {
   margin: auto;
   width: 50%;
+}
+
+.loginPage {
+  background-image: url('./Assets/hero-img.jpg');
+  width: 100%;
+  position: relative;
+  background-size: cover;
+  height: 90vh;
+  overflow:hidden;
+  padding: 0
+}
+
+.loginMainForm {
+  width: 26%;
+  //background-color: rgba(255,255,255, 1);
+}
+
+.loginForm{
+  padding: 25px
+}
+
+.loginMainForm .nav-link.consumer{
+  background-color: white !important;
+  color: black !important;
+}
+
+.loginMainForm .nav-link.business{
+  background-color: rgb(38, 73, 124) !important;
+  color: white !important;
+}
+
+.loginMainForm .businessTab {
+  background-color: rgb(38, 73, 124) !important;
+  color: white !important;
+}
+
+.loginMainForm .consumerTab {
+  background-color: white !important;
 }

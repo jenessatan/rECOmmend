@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardDeck, CardText, CardTitle, Jumbotron} from 'reactstrap';
+import { Button, Card, CardBody, CardDeck, CardText, CardTitle, Jumbotron} from 'reactstrap';
+import {Redirect} from 'react-router-dom';
 import './UserDashboard.scss';
 import ConsumerPosts from './ConsumerActivity';
 import UserInfo from './UserInfo';
@@ -12,9 +13,16 @@ class UserDashboard extends Component{
     	consumerPassword: '',
         consumerPosts: [],
         consumerPoints: 0,
+        isLoggedIn: !!window.localStorage.getItem('user')
+    };
+
+    logout = () => {
+        window.localStorage.clear();
+        this.setState({isLoggedIn: false})
     };
 
     render() {
+        if(this.state.isLoggedIn){
         return (
             <div className="dashboard">
                 <Jumbotron className='subHero' style={{backgroundImage: 'url('+require('../../Assets/evening.png')+')'}}>
@@ -84,6 +92,9 @@ class UserDashboard extends Component{
                 </div>                
             </div>
         );
+        } else {
+            return (<Redirect to='/'/>)
+        }
     }
 
     componentDidMount() {
@@ -100,7 +111,7 @@ class UserDashboard extends Component{
     		.catch(error => {
     			console.log(error);
     		});
-        fetch('http://localhost:5000/api/posts/CID1')
+        fetch('./api/posts/CID1')
             .then(res => res.json())
             .then((data) => {
                 this.setState({ consumerPosts: data.data });

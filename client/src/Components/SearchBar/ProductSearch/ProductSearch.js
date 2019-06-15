@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Col, Row, Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
 import BusinessSearch from "../BusinessSearch/BusinessSearch";
-import PostItem from '../../Post/PostItem'
+import Results from './Results';
 import '../SearchBar.scss';
 
 const initialState = {
@@ -12,6 +12,7 @@ const initialState = {
         sort: 'ASC',
         columns: ['productname', 'description', 'price', 'imagelink']
     },
+    results: [],
 };
 
 class ProductSearch extends Component{
@@ -30,10 +31,6 @@ class ProductSearch extends Component{
         }
     };
 
-    // handleSelectChange = (e) => {
-    //     this.setState({})
-    // }
-
     handleSubmit = () => {
         console.log(this.state.inputValue);
         console.log(this.state.advancedSearch);
@@ -47,7 +44,6 @@ class ProductSearch extends Component{
                         <div className="input-group">
                             <Input
                                 type="text"
-                                // className="form-control"
                                 placeholder="Get rECOmmendations for..."
                                 onChange={e => this.onChange(e)}
                             />
@@ -68,16 +64,16 @@ class ProductSearch extends Component{
                                     <Col>
                                         <FormGroup>
                                             <Label>Product Category</Label>
-                                            <Input type="select" value={this.state.advancedSearch.category} onChange={this.handleSelectChange}>
+                                            <Input type="select">
                                                 <option value="*">All Products</option>
-                                                <option value="fashion">Fashion</option>
-                                                <option value="homeGoods">Home Goods</option>
-                                                <option value="organic">Organic</option>
-                                                <option value="personalCare">Personal Care</option>
-                                                <option value="recreation">Recreation</option>
-                                                <option value="recycled">Recycled</option>
-                                                <option value="reusable">Reusable</option>
-                                                <option value="utensils">Utensils</option>
+                                                <option value="CAT1">Fashion</option>
+                                                <option value="CAT4">Home Goods</option>
+                                                <option value="CAT8">Organic</option>
+                                                <option value="CAT3">Personal Care</option>
+                                                <option value="CAT5">Recreation</option>
+                                                <option value="CAT7">Recycled</option>
+                                                <option value="CAT6">Reusable</option>
+                                                <option value="CAT2">Utensils</option>
                                             </Input>
                                         </FormGroup>
                                     </Col>
@@ -117,28 +113,20 @@ class ProductSearch extends Component{
                 </Form>
                 <div className='results'>
                     <Row fluid className='featuredRow'>
-                        <Col sm='2'>
-                            <PostItem title='Test Feature' author='Peter Parker' />
-                        </Col>
-                        <Col sm='2'>
-                            <PostItem title='Test Feature' author='Peter Parker' />
-                        </Col>
-                        <Col sm='2'>
-                            <PostItem title='Test Feature' author='Peter Parker' />
-                        </Col>
-                        <Col sm='2'>
-                            <PostItem title='Test Feature' author='Peter Parker' />
-                        </Col>
-                        <Col sm='2'>
-                            <PostItem title='Test Feature' author='Peter Parker' />
-                        </Col>
-                        <Col sm='2'>
-                            <PostItem title='Test Feature' author='Peter Parker' />
-                        </Col>
+                        <Results results={this.state.results}/>
                     </Row>
                 </div>
             </Container>
         );
+    }
+
+    componentDidMount() {
+        fetch('./api/products')
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({ results: data.data });
+            })
+            .catch(console.log);
     }
 }
 

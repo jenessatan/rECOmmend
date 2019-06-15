@@ -28,6 +28,17 @@ Products.findBySeller = business => db.query(
   [business]
 );
 
+//added
+Products.getNumberOfProducts = () => {
+	return db.one(`SELECT COUNT(*) FROM products`);
+};
+
+//added
+Products.addNewPost = (productId, payload) => {
+	return db.result(
+		`INSERT INTO products (productId, name, price, description, imageLink`, [productId, payload.name, payload.price, payload.description, payload.imageLink],
+	);
+}; 
 
 
 module.exports = Products;

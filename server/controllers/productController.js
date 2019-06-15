@@ -4,6 +4,38 @@ const Products = require('../models/products');
 
 const productController = {};
 
+//added
+productController.addNewProduct = (req, res) => {
+  const payload = {
+    //productId: req.body.productId,
+    name: req.body.name,
+    price: req.body.price,
+    description: req.body.description,
+    imageLink: req.body.description
+  };  
+  Products.getNumberOfProducts()
+    .then(numberOfProducts => {
+      let productNumber = Number(numberOfProducts.count) + 1;
+      let productId = `PRODID`.concat(String(productNumber));
+      Products.addNewProduct(productID, payload)
+        .then(response => {
+          if (response.rowCount === 1){
+            res.send({
+              message: 'Successfully added new product'
+            });
+          } else {
+            throw new Error(`Unable to add new product`);
+          }
+        })
+        .catch(error => {
+          throw new Error(error);
+        });
+    })
+    .catch(error => {
+      res.status(500).json({error: `${error}`});
+    });
+};
+
 productController.findByCategory = (req, res) => {
   Products.findByCategory(req.body.category)
     .then((products) => {

@@ -70,7 +70,8 @@ consumerController.login = (req, res) => {
       if (consumers) {
         res.json({
           success: !!consumers,
-          message: `Successfully logged in for ${consumers.email}`
+          message: `Successfully logged in for ${consumers.email}`,
+          data: consumers.consumerid
         });
       } else {
         res.json({

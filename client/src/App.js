@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Redirect, withRouter} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import LandingPage from './Pages/LandingPage';
 import ProfilePage from './Pages/ProfilePage';
 import Header from './Components/NavigationBar/Header.js';

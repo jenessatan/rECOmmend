@@ -1,11 +1,18 @@
 import React from 'react';
 import UserDashboard from '../Components/UserDashboard';
+import BusinessDashboard from '../Components/BusinessDashboard';
 
 
 function ProfilePage() {
-  return (
-    <UserDashboard />
-  );
+  if(window.localStorage.user-type === 'business') {
+    return (
+      <BusinessDashboard />
+    )
+  } else {
+    return (
+      <UserDashboard />
+    );
+  }
 }
 
 export default ProfilePage;

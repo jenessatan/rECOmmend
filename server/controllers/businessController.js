@@ -68,7 +68,8 @@ businessController.login = (req, res) => {
       if (business) {
         res.json({
           success: !!business,
-          message: `Successfully logged in for ${business.email}`
+          message: `Successfully logged in for ${business.email}`,
+          data: business.businessid
         });
       } else {
         res.json({

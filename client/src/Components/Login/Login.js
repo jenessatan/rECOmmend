@@ -71,8 +71,9 @@ class Login extends Component {
             .then((res) => res.json())
             .then((res) => {
                 if(res.success === true) {
-                    //console.log(res.message);
+                    //console.log(res.data);
                     window.localStorage.setItem('user', this.state.username);
+                    window.localStorage.setItem('user-id',res.data)
                     window.localStorage.setItem('user-type', 'business');
                     //console.log(window.localStorage.getItem('user'));
                     this.setState({isLoggedIn: true})

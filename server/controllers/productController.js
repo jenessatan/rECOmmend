@@ -1,38 +1,49 @@
 // controllers/productController.js
 
 const Products = require('../models/products');
+const Business = require('../models/business');
 
 const productController = {};
 
-//added
+// added
 productController.addNewProduct = (req, res) => {
   const payload = {
-    //productId: req.body.productId,
+    // productId: req.body.productId,
     name: req.body.name,
     price: req.body.price,
     description: req.body.description,
-    imageLink: req.body.description
-  };  
+    imageLink: req.body.imageLink
+  };
   Products.getNumberOfProducts()
-    .then(numberOfProducts => {
-      let productNumber = Number(numberOfProducts.count) + 1;
-      let productId = `PRODID`.concat(String(productNumber));
-      Products.addNewProduct(productID, payload)
-        .then(response => {
-          if (response.rowCount === 1){
-            res.send({
-              message: 'Successfully added new product'
-            });
+    .then((numberOfProducts) => {
+      const productNumber = Number(numberOfProducts.count) + 1;
+      const productId = 'PRODID'.concat(String(productNumber));
+      Products.addNewProduct(productId, payload)
+        .then((response) => {
+          if (response.rowCount === 1) {
+            Business.sellsNewProduct(productId, req.params.businessId)
+              .then((rsp) => {
+                if (rsp.rowCount === 1) {
+                  res.send({
+                    message: 'Successfully added new product to business'
+                  });
+                } else {
+                  throw new Error('unable to add new product to business');
+                }
+              })
+              .catch((error) => {
+                throw new Error(error);
+              });
           } else {
-            throw new Error(`Unable to add new product`);
+            throw new Error('unable to add new product');
           }
         })
-        .catch(error => {
+        .catch((error) => {
           throw new Error(error);
         });
     })
-    .catch(error => {
-      res.status(500).json({error: `${error}`});
+    .catch((error) => {
+      res.status(500).json({ error: `${error}` });
     });
 };
 
@@ -42,7 +53,7 @@ productController.findByCategory = (req, res) => {
       if (products && products.length > 0) {
         res.json({
           success: !!products,
-          data: products,
+          data: products
         });
       } else {
         res.json({
@@ -63,7 +74,7 @@ productController.findByCategoryAndName = (req, res) => {
       if (products && products.rows.length > 0) {
         res.json({
           success: !!products,
-          data: products.rows,
+          data: products.rows
         });
       } else {
         res.json({

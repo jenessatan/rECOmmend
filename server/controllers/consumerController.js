@@ -69,9 +69,12 @@ consumerController.login = (req, res) => {
   Consumer.login(req.body.email, req.body.password)
     .then((consumers) => {
       if (consumers) {
+      	console.log('*********consumers');
+      	console.log(consumers);
         res.json({
           success: !!consumers,
-          message: `Successfully logged in for ${consumers.email}`
+          message: `Successfully logged in for ${consumers.email}`,
+          accountid: consumers.consumerid
         });
       } else {
         res.json({

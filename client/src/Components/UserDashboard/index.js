@@ -7,8 +7,8 @@ import UserInfo from './UserInfo';
 
 class UserDashboard extends Component{
     state = {
-    	// TODO: Change to check local login
     	consumerEmail: '',
+    	consumerId: window.localStorage.getItem('user-id'),
     	consumerName: '',
     	consumerPassword: '',
         consumerPosts: [],
@@ -27,6 +27,7 @@ class UserDashboard extends Component{
             <div className="dashboard">
                 <Jumbotron className='subHero' style={{backgroundImage: 'url('+require('../../Assets/evening.png')+')'}}>
                 </Jumbotron>
+                <Button onClick={this.logout}>Logout</Button>
                 	<div class="row align-items-start" className="about-user">
                 	<div class="col">
                 	<CardDeck>
@@ -34,6 +35,7 @@ class UserDashboard extends Component{
                         	<CardBody>
                         		<CardTitle class="px-1">
                         			<h2>Profile</h2>
+                        			{this.state.consumerId}
                         		</CardTitle>
                         		<CardText>
                         			<UserInfo name={this.state.consumerName} email={this.state.consumerEmail} password={this.state.consumerPassword}/>

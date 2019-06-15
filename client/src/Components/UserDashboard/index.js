@@ -8,7 +8,6 @@ import UserInfo from './UserInfo';
 class UserDashboard extends Component{
     state = {
     	consumerEmail: '',
-    	consumerId: window.localStorage.getItem('user-id'),
     	consumerName: '',
     	consumerPassword: '',
         consumerPosts: [],
@@ -35,7 +34,6 @@ class UserDashboard extends Component{
                         	<CardBody>
                         		<CardTitle class="px-1">
                         			<h2>Profile</h2>
-                        			{this.state.consumerId}
                         		</CardTitle>
                         		<CardText>
                         			<UserInfo name={this.state.consumerName} email={this.state.consumerEmail} password={this.state.consumerPassword}/>
@@ -100,7 +98,9 @@ class UserDashboard extends Component{
     }
 
     componentDidMount() {
-    	fetch('http://localhost:5000/api/account/iamgroot@iamgroot.com')
+    	console.log('mounted');
+    	console.log(window.localStorage.getItem('user-id'));
+    	fetch(`./api/account/${window.localStorage.getItem('user-id')}`)
     		.then(res => res.json())
     		.then( (response) => {
     			this.setState({ consumerPoints: response.data.points});
@@ -113,7 +113,7 @@ class UserDashboard extends Component{
     		.catch(error => {
     			console.log(error);
     		});
-        fetch('./api/posts/CID1')
+        fetch(`./api/posts/${window.localStorage.getItem('user-id')}`)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ consumerPosts: data.data });

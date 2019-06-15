@@ -14,9 +14,9 @@ Consumer.editById = (id, payload) => db.result('UPDATE consumer SET name = $/nam
     id
   });
 
-Consumer.findByEmail = email => db.oneOrNone(
-  'SELECT * FROM consumer WHERE email = $1',
-  [email]
+Consumer.findById = id => db.oneOrNone(
+  'SELECT * FROM consumer WHERE consumerid = $1',
+  [id]
 );
 
 // Return one consumer from email,password

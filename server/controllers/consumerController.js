@@ -4,8 +4,8 @@ const consumerController = {};
 
 // TODO: Might want to find a better way to handle account not found
 
-consumerController.findByEmail = (req, res) => {
-  Consumer.findByEmail(req.params.email)
+consumerController.findById = (req, res) => {
+  Consumer.findById(req.params.accountid)
     .then((response) => {
   	if (response) {
   		res.json({
@@ -13,7 +13,7 @@ consumerController.findByEmail = (req, res) => {
       		data: response
     	});
       } else {
-        throw new Error(`Account ${req.params.email} not found`);
+        throw new Error(`Account ${req.params.accountid} not found`);
       }
     })
     .catch((err) => {
@@ -24,8 +24,6 @@ consumerController.findByEmail = (req, res) => {
 };
 
 consumerController.editById = (req, res) => {
-  console.log('***payload***');
-  console.log(req.body);
   const payload = {
     name: req.body.name,
     email: req.body.email,
@@ -33,6 +31,7 @@ consumerController.editById = (req, res) => {
 	 };
   Consumer.editById(req.params.accountid, payload)
     .then((response) => {
+      console.log(response);
       if (response.rowCount === 1) {
         res.send({
           message: 'Success'
@@ -42,7 +41,9 @@ consumerController.editById = (req, res) => {
       }
     })
     .catch((error) => {
-      res.status(500).json({ error: `${error}` });
+      return error.code==='23505' ?
+      	res.status(500).json({error: 'Email already in use'}) :
+      	res.status(500).json({ error: `Internal server error` });
     });
 };
 

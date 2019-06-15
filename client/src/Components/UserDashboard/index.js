@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardDeck, CardText, CardTitle, Jumbotron} from 'reactstrap';
+import { Button, Card, CardBody, CardDeck, CardText, CardTitle, Col, Jumbotron, Row} from 'reactstrap';
 import {Redirect} from 'react-router-dom';
 import './UserDashboard.scss';
 import ConsumerPosts from './ConsumerActivity';
+import RewardsHistory from './RewardsHistory';
 import UserInfo from './UserInfo';
 
 class UserDashboard extends Component{
@@ -12,6 +13,7 @@ class UserDashboard extends Component{
     	consumerPassword: '',
         consumerPosts: [],
         consumerPoints: 0,
+        consumerRewards: [],
         isLoggedIn: !!window.localStorage.getItem('user')
     };
 
@@ -27,8 +29,8 @@ class UserDashboard extends Component{
                 <Jumbotron className='subHero' style={{backgroundImage: 'url('+require('../../Assets/evening.png')+')'}}>
                 </Jumbotron>
                 <Button onClick={this.logout}>Logout</Button>
-                	<div class="row align-items-start" className="about-user">
-                	<div class="col">
+                	<Row className="about-user align-items-start my-3">
+                	<Col>
                 	<CardDeck>
                     	<Card>
                         	<CardBody>
@@ -47,19 +49,17 @@ class UserDashboard extends Component{
 	                        		<h2>Points</h2>
 	                        	</CardTitle>                        	
                         		<CardText>
-                        			Your current points balance:<br />
-                        			{ this.state.consumerPoints }
-                        			<br />
+                        			Your current points balance: { this.state.consumerPoints }
                         			<br />
                         			Available rewards
                         		</CardText>
                         	</CardBody>
                         </Card>
                     </CardDeck>
-                    </div>
-                </div>
-                <div class="row justify-items-center mx-3 my-6">
-                	<div class="col">
+                    </Col>
+                </Row>
+                <Row className="activity-card justify-items-center mx-3 my-6">
+                	<Col>
                 		<CardDeck>
                     	<Card>
                     		<CardBody>
@@ -72,24 +72,24 @@ class UserDashboard extends Component{
                     		</CardBody>
                     	</Card>
                     </CardDeck>
-                	</div>
-                </div>
-                <div class="row justify-items-center mx-3 my-6">
-                	<div class="col">
-                		<CardDeck>
+                	</Col>
+                </Row>
+                <Row className="justify-items-center mx-3 my-6 activity-card" >
+                	<Col>
+                		<CardDeck mx-3>
                     	<Card>
                     		<CardBody>
 	                    		<CardTitle>
                     				<h2>Your rewards history</h2>
                     			</CardTitle>                    		
                     			<CardText>
-                    				<ConsumerPosts posts={this.state.consumerPosts}/>
+                    				<RewardsHistory history={this.state.consumerRewards}/>
                     			</CardText>
                     		</CardBody>
                     	</Card>
                     </CardDeck>
-                	</div>
-                </div>                
+                	</Col>
+                </Row>                
             </div>
         );
         } else {
@@ -98,8 +98,6 @@ class UserDashboard extends Component{
     }
 
     componentDidMount() {
-    	console.log('mounted');
-    	console.log(window.localStorage.getItem('user-id'));
     	fetch(`./api/account/${window.localStorage.getItem('user-id')}`)
     		.then(res => res.json())
     		.then( (response) => {
@@ -107,10 +105,9 @@ class UserDashboard extends Component{
     			this.setState({ consumerEmail: response.data.email});
     			this.setState({ consumerPassword: response.data.password});
     			this.setState({ consumerName: response.data.name});
-    			console.log('initial call');
-    			console.log(this.state);
     		})
     		.catch(error => {
+    			console.log('Error retrieving account information');
     			console.log(error);
     		});
         fetch(`./api/posts/${window.localStorage.getItem('user-id')}`)
@@ -119,8 +116,18 @@ class UserDashboard extends Component{
                 this.setState({ consumerPosts: data.data });
             })
             .catch(error => {
+            	console.log('Error retrieving consumer post history');
             	console.log(error)
             });
+        fetch(`./api/reward/history/${window.localStorage.getItem('user-id')}`)
+        	.then(res => res.json())
+        	.then((data) => {
+        		this.setState({ consumerRewards: data.data});
+        	})
+        	.catch(error => {
+        		console.log('Error retrieving consumer rewards history');
+        		console.log(error);
+        	});
     }
 }
 

@@ -41,6 +41,16 @@ Business.avgRewardsRedeemed = id => db.oneOrNone(
  [id]
 );
 
+Business.getReward = id => db.result(
+  'SELECT * FROM offers_reward WHERE businessid = $1',
+  [id]
+);
+
+Business.sellsNewProduct = (pid, bid) => db.result(
+  'INSERT INTO sells (productid, businessid) values ($1, $2)',
+  [pid, bid]
+);
+
   Business.getProduct = id => db.result(
   'SELECT * FROM products p, sells s WHERE p.productid = s.productid AND s.businessid = $1',
   [id]

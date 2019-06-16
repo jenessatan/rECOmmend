@@ -1,4 +1,4 @@
-import React, {Component, ListItem} from 'react';
+import React, {Component} from 'react';
 
 class Certification extends Component {
   constructor(props) {

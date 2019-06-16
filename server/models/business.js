@@ -30,4 +30,9 @@ Business.getCert = id => db.result(
   [id]
 );
 
+Business.getProduct = id => db.result(
+  'SELECT * FROM products p, sells s WHERE p.productid = s.productid AND s.businessid = $1',
+  [id]
+);
+
 module.exports = Business;

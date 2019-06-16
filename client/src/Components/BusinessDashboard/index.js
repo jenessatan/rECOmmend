@@ -16,7 +16,9 @@ import { Redirect } from "react-router-dom";
 import "./BusinessDashboard.scss";
 import ProfileForm from "./editprofile";
 import Certification from "./certification";
-import ProfileView from './viewprofile'
+import ProfileView from './viewprofile';
+import Reward from './reward';
+import Product from './product';
 
 class BusinessDashboard extends Component {
   state = {
@@ -36,13 +38,26 @@ class BusinessDashboard extends Component {
 
   profileToggle = () => {
     this.setState({ isEditing: !this.state.isEditing });
+    fetch(`./api/business/${this.state.id}`)
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        id: data.data.businessid,
+        name: data.data.name,
+        description: data.data.description,
+        website: data.data.url,
+        email: data.data.email
+      });
+    })
   };
 
   render() {
     if (this.state.isLoggedIn) {
       return (
         <div className="dashboard">
-          <Button onClick={this.logout}>Logout</Button>
+            <Col className='text-right'>
+          <Button onClick={this.logout} outline color='primary'>Logout</Button>
+            </Col>
           <CardDeck>
             <Card>
               <Navbar>
@@ -60,6 +75,9 @@ class BusinessDashboard extends Component {
                     description={this.state.description}
                     name={this.state.name}
                     email={this.state.email}
+                    id={this.state.id}
+                    toggle={this.profileToggle}
+                    logout={this.logout}
                   />
                 ) : (
                   <ProfileView                     
@@ -80,31 +98,8 @@ class BusinessDashboard extends Component {
               </CardBody>
             </Card>
           </CardDeck>
-          <CardDeck>
-            <Card>
-              <Navbar>
-                <NavbarBrand>Rewards</NavbarBrand>
-                <hr className="my-2" style={{ width: "100%" }} />
-              </Navbar>
-              <CardBody>
-                <CardText>Business Dashboard</CardText>
-              </CardBody>
-            </Card>
-          </CardDeck>
-          <CardDeck>
-            <Card>
-              <Navbar>
-                <NavbarBrand>Product Overview</NavbarBrand>
-                <hr className="my-2" style={{ width: "100%" }} />
-              </Navbar>
-              <CardBody>
-                <CardTitle>Profile</CardTitle>
-                <CardText>
-                  Hello World! This is a test of the card text
-                </CardText>
-              </CardBody>
-            </Card>
-          </CardDeck>
+          <Reward id={this.state.id} />
+          <Product id={this.state.id} />
         </div>
       );
     } else {

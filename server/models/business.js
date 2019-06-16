@@ -30,4 +30,9 @@ Business.sellsNewProduct = (pid, bid) => db.result(
   [pid, bid]
 );
 
+Business.getCert = id => db.result(
+  'SELECT certname FROM has_cert h, certification c WHERE h.businessid = $1 AND h.certid = c.certid',
+  [id]
+);
+
 module.exports = Business;

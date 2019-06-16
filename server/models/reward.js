@@ -14,7 +14,7 @@ Reward.addNewRedemption = (payload) => {
 				 businessid: payload.businessID,
 				 consumerid: payload.consumerID
 				 }),
-			t.one('UPDATE consumer SET points = points - $/points/ WHERE consumerID = $/consumerid/ RETURNING points', 
+			t.one('UPDATE consumer SET points = (points - $/points/) WHERE consumerID = $/consumerid/ RETURNING points', 
 				{points: payload.points,
 				 consumerid: payload.consumerID
 				 })

@@ -19,7 +19,19 @@ class RewardsHistory extends Component {
 
 			return nextProps;
 		}
+	}
+	
+	static componentDidUpdate(prevProps, prevState) {
+		console.log('compontnupdated');
+		if (prevProps.history !== this.props.history) {
+		this.setState({history: this.props.history});
+		}
 	}	
+	
+	componentWillReceiveProps(props) {
+		console.log('willreceive');
+		this.setState({history: this.props.history});
+	}
 	
 	render() {
 		if (this.state.history.length < 1) {
@@ -35,7 +47,7 @@ class RewardsHistory extends Component {
 				</tr>
 			</thead>
 			<tbody>
-				{this.state.history.map((redemption) => (
+				{this.props.history.map((redemption) => (
 					<tr>
 						<td>{new Date(redemption.date).toLocaleDateString()}</td>
 						<td>{redemption.name}</td>

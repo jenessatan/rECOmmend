@@ -139,45 +139,6 @@ businessController.getCert = (req, res) => {
   });
 }
 
-//added
-businessController.avgRewardsRedeemedByBusiness = (req, res) => {
-  Business.avgRewardsRedeemed(req.params.accountid)
-    .then((response) => {
-    if (response) {
-      res.json({
-          message: 'Success',
-          data: response
-      });
-      } else {
-        throw new Error('Unable to find reward history');
-      }
-    })
-    .catch((err) => {
-    console.log('error message');
-      console.log(err);
-      res.status(500).json({ error: `${err}` });
-    });
-};
-
-
-businessController.findById = (req, res) => {
-  Business.findById(req.params.accountid)
-  .then((response) => {
-    if (response) {
-      res.json({
-          message: 'Success',
-          data: response
-      });
-      } else {
-        throw new Error(`Account ${req.params.accountid} not found`);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({ error: `${err}` });
-    });
-};
-
 businessController.getReward = (req, res) => {
   Business.getReward(req.params.accountid)
     .then((response) => {
@@ -251,4 +212,4 @@ businessController.redeemedRewards = (req, res) => {
     });
 }
 
-module.exports = businessController
+module.exports = businessController;

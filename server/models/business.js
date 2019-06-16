@@ -35,4 +35,10 @@ Business.getCert = id => db.result(
   [id]
 );
 
+//added, returns the average number of rewards redeemed by each customer given a particular business
+Business.avgRewardsRedeemed = id => db.oneOrNone(
+  'SELECT AVG(numRedeemed) FROM (SELECT c.ConsumerID as CID, COALESCE(numRedeemed,0) as numRedeemed from consumer c LEFT JOIN (SELECT ConsumerID, COUNT(*) as numRedeemed FROM redeems_reward WHERE BusinessID = $1 GROUP BY ConsumerID) as r ON c.ConsumerID = r.ConsumerID) as joined', 
+  [id]
+);
+
 module.exports = Business;

@@ -100,6 +100,23 @@ businessController.getCert = (req, res) => {
     });
 };
 
+businessController.getReward = (req, res) => {
+  Business.getReward(req.params.accountid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response.rows
+        });
+      } else {
+        throw new Error(`Account ${req.params.accountid} not found`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 // added
 businessController.avgRewardsRedeemedByBusiness = (req, res) => {
   Business.avgRewardsRedeemed(req.params.accountid)

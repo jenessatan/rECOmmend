@@ -35,6 +35,11 @@ Business.getProduct = id => db.result(
   [id]
 );
 
+Business.getReward = id => db.result(
+  'SELECT * FROM offers_reward WHERE businessid = $1',
+  [id]
+);
+
 Business.sellsNewProduct = (pid, bid) => db.result(
   'INSERT INTO sells (productid, businessid) values ($1, $2)',
   [pid, bid]

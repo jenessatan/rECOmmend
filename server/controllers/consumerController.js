@@ -86,4 +86,44 @@ consumerController.login = (req, res) => {
     });
 };
 
+//added
+consumerController.avgNumRewardsRedeemed = (req, res) => {
+  Consumer.avgNumRewardsRedeemed()
+    .then((response) => {
+    if (response) {
+      res.json({
+          message: 'Success',
+          data: response
+      });
+      } else {
+        throw new Error(`Query failed`);
+      }
+    })
+    .catch((err) => {
+    console.log('error message');
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });  
+}
+
+//added
+consumerController.numRewardsRedeemed = (req, res) => {
+  Consumer.numRewardsRedeemed(req.params.accountid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response
+        });
+      } else {
+        console.log(response);
+        throw new Error(`Unable to access reward history for account ${req.params.accountid}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });  
+};
+
 module.exports = consumerController;

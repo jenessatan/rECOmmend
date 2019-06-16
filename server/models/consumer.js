@@ -25,4 +25,14 @@ Consumer.login = (email, password) => db.oneOrNone(
   [email, password]
 );
 
+//added
+Consumer.avgNumRewardsRedeemed = () => db.oneOrNone(
+  'SELECT AVG(numRedeemed) FROM (SELECT c.ConsumerID as CID, COALESCE(numRedeemed,0) as numRedeemed from consumer c LEFT JOIN (SELECT ConsumerID, COUNT(*) as numRedeemed FROM redeems_reward GROUP BY ConsumerID) as r ON c.ConsumerID = r.ConsumerID) as joined'
+);
+
+//added
+Consumer.numRewardsRedeemed = id => db.oneOrNone(
+  'SELECT COUNT(*) FROM redeems_reward WHERE consumerid = $1', [id]
+);
+
 module.exports = Consumer;

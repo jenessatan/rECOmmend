@@ -11,7 +11,7 @@ Products.findByCategory = category => db.query(
 Products.findByCategoryAndName = (payload) => {
   console.log(payload, 'model');
   const { columns, input, category } = payload;
-  const queryString = `SELECT ` + columns + `, COUNT(*) FROM products WHERE name LIKE '%` + input + `%' AND ProductID in (SELECT ProductID from has_prodcat WHERE prodcatID = '` + category +`') GROUP BY productID`;
+  const queryString = `SELECT ${columns}, COUNT(*) FROM products WHERE name LIKE '%${input}%' AND ProductID in (SELECT ProductID from has_prodcat WHERE prodcatID = '${category}') GROUP BY productID`;
   console.log(queryString);
   return db.result(queryString);
 };
@@ -28,6 +28,14 @@ Products.findBySeller = business => db.query(
   [business]
 );
 
+// added
+Products.getNumberOfProducts = () => db.one('SELECT COUNT(*) FROM products');
+
+// added
+Products.addNewProduct = (productId, payload) => db.result(
+  'INSERT INTO products (productId, name, price, description, imageLink) values ($1, $2, $3, $4, $5)',
+  [productId, payload.name, payload.price, payload.description, payload.imageLink]
+);
 
 
 module.exports = Products;

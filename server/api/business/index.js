@@ -8,4 +8,7 @@ router.delete('/:accountid', businessController.deleteById);
 router.get('/cert/:accountid', businessController.getCert);
 router.get('/product/:accountid', businessController.getProduct);
 
+//added
+router.get('/:accountid/avgNumRewards', businessController.avgRewardsRedeemedByBusiness);
+
 module.exports = router;

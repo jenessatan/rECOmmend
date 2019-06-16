@@ -253,7 +253,10 @@ INSERT INTO certification (certid, description, logolink, certname, certifyingbo
 
 INSERT INTO has_cert VALUES
 	('BID1', 'CERTID1'),
+	('BID1', 'CERTID2'),
+	('BID1', 'CERTID3'),
 	('BID1', 'CERTID4'),
+	('BID1', 'CERTID5'),
 	('BID2', 'CERTID5'),
 	('BID3', 'CERTID3'),
 	('BID4', 'CERTID4'),

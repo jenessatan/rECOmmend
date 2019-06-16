@@ -84,4 +84,23 @@ businessController.login = (req, res) => {
     });
 };
 
+businessController.getCert = (req, res) => {
+  Business.getCert(req.params.accountid)
+    .then((response) => {
+  	if (response) {
+  		res.json({
+      		message: 'Success',
+      		data: response.rows
+    	});
+      } else {
+        throw new Error(`Account ${req.params.accountid} not found`);
+      }
+    })
+    .catch((err) => {
+  	console.log('error message');
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });
+};
+
 module.exports = businessController;

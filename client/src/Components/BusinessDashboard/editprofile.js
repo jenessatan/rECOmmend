@@ -11,119 +11,40 @@ import {Button,
 
 class ProfileForm extends Component {
   render() {
+    console.log(this.props.email);
     return (
       <>
   <div className="content">
-    <Row>
-      <Col md="8">
-        <Card>
-          <CardHeader>
-            <h5 className="title">Edit Profile</h5>
-          </CardHeader>
-          <CardBody>
-            <Form>
+            <Form className='editProfileForm'>
               <Row>
-                <Col className="pr-1" md="5">
+                <Col>
                   <FormGroup>
                     <label>Company (disabled)</label>
                     <Input
-                      defaultValue="Creative Code Inc."
+                      defaultValue={this.props.name}
                       disabled
                       placeholder="Company"
                       type="text"
                     />
                   </FormGroup>
                 </Col>
-                <Col className="px-1" md="3">
-                  <FormGroup>
-                    <label>Username</label>
-                    <Input
-                      defaultValue="michael23"
-                      placeholder="Username"
-                      type="text"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col className="pl-1" md="4">
+                <Col>
                   <FormGroup>
                     <label htmlFor="exampleInputEmail1">
                       Email address
                     </label>
-                    <Input placeholder="Email" type="email" />
+                    <Input defaultValue={this.props.email} placeholder={this.props.email} type="email" />
                   </FormGroup>
                 </Col>
               </Row>
               <Row>
-                <Col className="pr-1" md="6">
-                  <FormGroup>
-                    <label>First Name</label>
-                    <Input
-                      defaultValue="Mike"
-                      placeholder="Company"
-                      type="text"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col className="pl-1" md="6">
-                  <FormGroup>
-                    <label>Last Name</label>
-                    <Input
-                      defaultValue="Andrew"
-                      placeholder="Last Name"
-                      type="text"
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col md="12">
-                  <FormGroup>
-                    <label>Address</label>
-                    <Input
-                      defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                      placeholder="Home Address"
-                      type="text"
-                    />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col className="pr-1" md="4">
-                  <FormGroup>
-                    <label>City</label>
-                    <Input
-                      defaultValue="Mike"
-                      placeholder="City"
-                      type="text"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col className="px-1" md="4">
-                  <FormGroup>
-                    <label>Country</label>
-                    <Input
-                      defaultValue="Andrew"
-                      placeholder="Country"
-                      type="text"
-                    />
-                  </FormGroup>
-                </Col>
-                <Col className="pl-1" md="4">
-                  <FormGroup>
-                    <label>Postal Code</label>
-                    <Input placeholder="ZIP Code" type="number" />
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col md="12">
+                <Col>
                   <FormGroup>
                     <label>Description</label>
                     <Input
                       cols="80"
-                      defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                      that two seat Lambo."
-                      placeholder="Here can be your description"
+                      defaultValue={this.props.description}
+                      placeholder={this.props.description}
                       rows="4"
                       type="textarea"
                     />
@@ -131,10 +52,6 @@ class ProfileForm extends Component {
                 </Col>
               </Row>
             </Form>
-          </CardBody>
-        </Card>
-      </Col>
-      </Row>
   </div>
 </>
 );

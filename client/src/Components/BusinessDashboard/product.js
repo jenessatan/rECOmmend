@@ -39,6 +39,7 @@ class Product extends Component {
         this.setState({ total: response.data.length, products: response.data });
       });
   }
+  
 
   toggle = () => {
     this.setState({formVisible: !this.state.formVisible})
@@ -66,11 +67,13 @@ class Product extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.state.newProduct)
     })
-    fetch(`./api/business/product/${this.props.id}`)
-    .then(res => res.json())
-    .then(response => {
-      this.setState({ total: response.data.length, products: response.data });
-    });
+    .then(()=> {
+      fetch(`./api/business/product/${this.props.id}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ total: response.data.length, products: response.data });
+      });
+    })
     this.toggle();
   }
 

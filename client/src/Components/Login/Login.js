@@ -113,12 +113,12 @@ class Login extends Component {
                   <Form className='loginForm'>
                      <FormGroup>
                      <Label for="exampleEmail" >Email</Label>
-                     <Input type="email" name="email" id="exampleEmail" placeholder="Email"
+                     <Input type="email" name="email" id="ConsumerEmail" placeholder="Email"
                            onChange={this.handleUsernameChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="examplePassword">Password</Label>
-                    <Input type="password" name="password" id="examplePassword" placeholder="Password"
+                    <Input type="password" name="password" id="ConsumerPassword" placeholder="Password"
                            onChange={this.handlePasswordChange} />
                 </FormGroup>
                     <Button onClick={this.loginConsumer}>Submit</Button>
@@ -128,12 +128,12 @@ class Login extends Component {
                   <Form className='loginForm'>
                      <FormGroup>
                      <Label for="exampleEmail" >Email</Label>
-                     <Input type="email" name="email" id="exampleEmail" placeholder="Email"
+                     <Input type="email" name="email" id="BizEmail" placeholder="Email"
                            onChange={this.handleUsernameChange} />
                 </FormGroup>
                 <FormGroup>
                     <Label for="examplePassword">Password</Label>
-                    <Input type="password" name="password" id="examplePassword" placeholder="Password"
+                    <Input type="password" name="password" id="BizPassword" placeholder="Password"
                            onChange={this.handlePasswordChange} />
                 </FormGroup>
                     <Button onClick={this.loginBusiness}>Submit</Button>

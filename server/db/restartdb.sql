@@ -188,7 +188,11 @@ INSERT INTO products (productid, name, description, imagelink, price) VALUES
 	('PRODID2', 'Mini Arc Reactor', 'Power your home with the power of Iron Man', 'www/assets/products/prodid2.jpg',3000),
 	('PRODID3', 'tentree Tank', 'Sustainable tank top that plants 10 trees', 'www/assets/products/prodid3.jpg', 65),
 	('PRODID4', 'Bamboo Straw', 'Young bamboo chopped short to fit in your cup. Suck responsibly', 'www/assets/products/prodid4.jpg', 7),
-	('PRODID5', 'KarTent Home', 'Cardboard tent for the hippie musical festival scene', 'www/assets/products/prodid5.jpg', 150);
+	('PRODID5', 'KarTent Home', 'Cardboard tent for the hippie musical festival scene', 'www/assets/products/prodid5.jpg', 150),
+	('PRODID6', 'Bee''s Wrap', 'The natural alternative to plastic wrap for food storage', 'www/assets/products/prodid6.jpg', 30),
+	('PRODID7', 'Silicone Sandwich Bag', 'Resealable silicone bag for storage of foods', 'www/assets/products/prodid7.jpg', 21),
+	('PRODID8', 'Bambooee', 'Machine washable paper towel replacement', 'www/assets/products/prodid8.jpg', 40),
+	('PRODID9', 'Pilot B2P Retractable Pen', 'World''s first pens made from recycled plastic bottles', 'www/assets/products/prodid9.jpg', 10);
 
 INSERT INTO has_prodcat (prodcatid, productid) VALUES
 	('CAT2', 'PRODID1'),
@@ -198,7 +202,18 @@ INSERT INTO has_prodcat (prodcatid, productid) VALUES
 	('CAT2', 'PRODID4'),
 	('CAT6', 'PRODID4'),
 	('CAT5', 'PRODID5'),
-	('CAT1', 'PRODID4');
+	('CAT1', 'PRODID4'),
+	('CAT8', 'PRODID6'),
+	('CAT6', 'PRODID6'),
+	('CAT4', 'PRODID6'),
+	('CAT8', 'PRODID7'),
+	('CAT6', 'PRODID7'),
+	('CAT4', 'PRODID7'),
+	('CAT8', 'PRODID8'),
+	('CAT6', 'PRODID8'),
+	('CAT4', 'PRODID8'),
+	('CAT7', 'PRODID9');
+
 
 INSERT INTO consumer (consumerid, name, password, email, points) VALUES
 	('CID1', 'James Rhodes', 'WARMACHINEROX', 'warmachine@defense.gov', 1979),
@@ -219,7 +234,11 @@ INSERT INTO sells (ProductID, BusinessID) VALUES
 	('PRODID2', 'BID5'),
 	('PRODID3', 'BID3'),
 	('PRODID4', 'BID4'),
-	('PRODID5', 'BID2');
+	('PRODID5', 'BID2'),
+	('PRODID6', 'BID2'),
+	('PRODID7', 'BID2'),
+	('PRODID8', 'BID2'),
+	('PRODID9', 'BID2');
 
 INSERT INTO city_info (PostalCode, City) VALUES
 	('V6J 1M5', 'Vancouver'),
@@ -241,7 +260,13 @@ INSERT INTO offers_reward VALUES
 	('Free priority shipping', 1000, 'BID1'),
 	('Free priority shipping', 1000, 'BID3'),
 	('$5 off next order of $20 or more', 500, 'BID5'),
-	('$5 off next order of $20 or more', 500, 'BID4');
+	('$5 off next order of $20 or more', 500, 'BID4'),
+	('$10 off next order of $50 or more', 1000, 'BID2'),
+	('Free reusable tote bag', 500, 'BID2'),
+	('Free reusable water bottle', 1000, 'BID2'),
+	('$25 gift card', 2000, 'BID2'),
+	('Free gift basket', 1000, 'BID2'),
+	('Free set of reusable straws', 1000, 'BID2');
 
 INSERT INTO certification (certid, description, logolink, certname, certifyingbody) VALUES
 	('CERTID1', 'The Fair Trade Certified seal represents thousands of products, improving millions of lives, protecting land and waterways in 45 countries and counting. Purchases have sent $551 million to farmers and workers since 1998.', 'https://www.fairtradecertified.org/themes/fairtheme/source/images/ftc-full-seal-rgb.svg', 'Fair Trade Certified', 'Fair Trade USA');
@@ -255,6 +280,10 @@ INSERT INTO has_cert VALUES
 	('BID1', 'CERTID1'),
 	('BID1', 'CERTID4'),
 	('BID2', 'CERTID5'),
+	('BID2', 'CERTID2'),
+	('BID2', 'CERTID3'),
+	('BID2', 'CERTID1'),
+	('BID2', 'CERTID4'),
 	('BID3', 'CERTID3'),
 	('BID4', 'CERTID4'),
 	('BID5', 'CERTID2');
@@ -278,7 +307,20 @@ INSERT into redeems_reward (rewardname, businessid, date, consumerid) VALUES
 	('$5 off next order of $20 or more', 'BID5', '2019-03-22', 'CID2'),
 	('10% coupon', 'BID1', '2017-04-19', 'CID2'),
 	('Free priority shipping', 'BID3', '2019-05-01', 'CID2'),
-	('Free priority shipping', 'BID3',  '2019-06-01', 'CID2');
+	('Free priority shipping', 'BID3',  '2019-06-01', 'CID2'),
+	('$10 off next order of $50 or more', 'BID2', '2019-04-01', 'CID3'),
+	('Free reusable tote bag', 'BID2', '2018-05-10','CID1'),
+	('Free reusable tote bag', 'BID2', '2018-06-12','CID4'),
+	('Free reusable tote bag', 'BID2', '2019-01-02','CID5'),
+	('Free reusable water bottle', 'BID2', '2018-12-11', 'CID2'),
+	('Free reusable water bottle', 'BID2', '2018-11-11', 'CID1'),
+	('Free reusable water bottle', 'BID2', '2018-10-11', 'CID2'),
+	('Free reusable water bottle', 'BID2', '2018-11-11', 'CID5'),
+	('Free reusable water bottle', 'BID2', '2018-12-11', 'CID4'),
+	('Free reusable water bottle', 'BID2', '2018-09-11', 'CID3'),
+	('$25 gift card', 'BID2', '2019-05-06', 'CID1'),
+	('$25 gift card', 'BID2', '2019-06-06', 'CID3'),
+	('$25 gift card', 'BID2', '2019-04-22', 'CID5');
 
 INSERT INTO survey VALUES
 	('SID1', 'https://bit.ly/2wmAX0B', 25),

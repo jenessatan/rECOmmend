@@ -155,4 +155,21 @@ businessController.getProduct = (req, res) => {
     });
 };
 
+businessController.redeemedRewards = (req, res) => {
+  Business.redeemedRewards(req.params.accountid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response.rows
+        });
+      } else {
+        throw new Error(`Account ${req.params.accountid} not found`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });
+};
 module.exports = businessController;

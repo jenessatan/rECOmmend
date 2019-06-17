@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {
   CardBody} from 'reactstrap';
+import Certification from './certification'
 
 class ProfileView extends Component {
 
@@ -8,9 +9,9 @@ class ProfileView extends Component {
     return(
       <div className="card-user">
                 <div className="image">
-                  <img alt="..." src={require('../../Assets/evening.png')} />
+                  {/* <img alt="..." src={require('../../Assets/evening.png')} /> */}
                 </div>
-                <CardBody>
+                <CardBody style={{paddingBottom: '0'}}>
                   <div className="author">
                       <img
                         alt="..."
@@ -23,6 +24,7 @@ class ProfileView extends Component {
                   <p className="description text-center">
                     {this.props.description}
                   </p>
+                  <Certification id={this.props.id} />
                 </CardBody>
       </div>
     )

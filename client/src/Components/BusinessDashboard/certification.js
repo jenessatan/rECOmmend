@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import _ from 'lodash';
 
 class Certification extends Component {
   constructor(props) {
@@ -12,12 +13,8 @@ class Certification extends Component {
   render = () => {
     const certificates = this.state.certs;
     return(
-      <div>
-        <ul>
-        {certificates.map((val, idx) => {
-          return <li key={idx}>{val}</li>
-        })}
-        </ul>
+      <div style={{marginTop: '10pt'}}>
+        <p className='text-center'>{_.join(certificates, '  |  ')}</p>
       </div>
     )
   }
@@ -31,7 +28,6 @@ class Certification extends Component {
         return val.certname;
       })
       this.setState({certs: certificateName});
-      console.log(this.state.certs);
     })
   }
 }

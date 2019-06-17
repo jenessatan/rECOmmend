@@ -51,4 +51,9 @@ Business.avgRewardsRedeemed = id => db.oneOrNone(
   [id]
 );
 
+Business.redeemedRewards = id => db.result(
+  'SELECT rewardname, COUNT(*) FROM redeems_reward WHERE businessid = $1 GROUP BY rewardname',
+  [id]
+);
+
 module.exports = Business;

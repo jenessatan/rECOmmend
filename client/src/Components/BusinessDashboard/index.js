@@ -2,12 +2,9 @@ import React, { Component } from "react";
 import {
   Card,
   CardBody,
-  CardTitle,
-  CardText,
   Button,
   CardDeck,
   Col,
-  Row,
   Navbar,
   NavbarBrand,
   Nav
@@ -15,7 +12,6 @@ import {
 import { Redirect } from "react-router-dom";
 import "./BusinessDashboard.scss";
 import ProfileForm from "./editprofile";
-import Certification from "./certification";
 import ProfileView from './viewprofile';
 import Reward from './reward';
 import Product from './product';
@@ -83,18 +79,9 @@ class BusinessDashboard extends Component {
                   <ProfileView                     
                   description={this.state.description}
                   name={this.state.name}
-                  email={this.state.email}/>
+                  email={this.state.email}
+                  id={this.state.id}/>
                 )}
-              </CardBody>
-            </Card>
-
-            <Card>
-              <Navbar>
-                <NavbarBrand>Certifications</NavbarBrand>
-                <hr className="my-2" style={{ width: "100%" }} />
-              </Navbar>
-              <CardBody>
-                <Certification id={this.state.id} />
               </CardBody>
             </Card>
           </CardDeck>
@@ -119,7 +106,6 @@ class BusinessDashboard extends Component {
           email: data.data.email
         });
       })
-      .catch(console.log);
   }
 }
 

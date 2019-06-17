@@ -56,4 +56,9 @@ Business.sellsNewProduct = (pid, bid) => db.result(
   [id]
 );
 
+Business.redeemedRewards = id => db.result(
+  'SELECT rewardname, COUNT(*) FROM redeems_reward WHERE businessid = $1 GROUP BY rewardname',
+  [id]
+);
+
 module.exports = Business;

@@ -13,6 +13,11 @@ router.get('/soldby', productController.findBySeller);
 //added
 router.post('/new/:businessId', productController.addNewProduct);
 
+//added not tested
+router.patch('/:productid', productController.editProduct);
+//added not tested
+router.delete('/:productid', productController.deleteProduct);
+
 router.post('/', (req, res)=> {
 	return res.send('test add new product');
 });

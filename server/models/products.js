@@ -37,5 +37,20 @@ Products.addNewProduct = (productId, payload) => db.result(
   [productId, payload.name, payload.price, payload.description, payload.imageLink]
 );
 
+//added not tested
+Consumer.editById = (id, payload) => db.result(
+  'UPDATE products SET name = $/name/, description = $/description/, imagelink = $/imagelink, price = $/price/ WHERE productid = $/id/',
+  {
+    name: payload.name,
+    description: payload.description,
+    imagelink: payload.imagelink,
+    price: payload.price,
+    id
+  });
+
+//added not tested
+Consumer.deleteProduct = id => db.result(
+  'DELETE FROM products WHERE productid = $1', [id]
+);
 
 module.exports = Products;

@@ -137,6 +137,7 @@ businessController.getCert = (req, res) => {
     console.log(err);
     res.status(500).json({ error: `${err}` });
   });
+}
 
 //added
 businessController.avgRewardsRedeemedByBusiness = (req, res) => {
@@ -248,5 +249,6 @@ businessController.redeemedRewards = (req, res) => {
       console.log(err);
       res.status(500).json({ error: `${err}` });
     });
-};
-module.exports = businessController;
+}
+
+module.exports = businessController

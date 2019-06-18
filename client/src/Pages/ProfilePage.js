@@ -4,7 +4,8 @@ import BusinessDashboard from '../Components/BusinessDashboard';
 
 
 function ProfilePage() {
-  if(window.localStorage.user-type === 'business') {
+  console.log(window.localStorage.usertype);
+  if(window.localStorage.usertype === 'business') {
     return (
       <BusinessDashboard />
     )

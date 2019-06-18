@@ -42,7 +42,7 @@ class UserDashboard extends Component{
   				'content-type': 'application/json'},
   			body: JSON.stringify({
   				'businessID': this.state.availRewards[index].businessid,
-				'consumerID': window.localStorage.getItem('user-id'),
+				'consumerID': window.localStorage.getItem('userid'),
 				'rewardName': this.state.availRewards[index].rewardname,
 				'points': this.state.availRewards[index].pointvalue
   				}),
@@ -55,12 +55,12 @@ class UserDashboard extends Component{
   			}
   			else {
   				// Get updated points
-  				fetch(`./api/account/${window.localStorage.getItem('user-id')}`)
+					fetch(`./api/account/${window.localStorage.getItem('userid')}`)
     				.then(res => res.json())
     				.then( (response) => {
     					this.setState({ consumerPoints: response.data.points});
     					// Get updated rewards history	    					
-    					fetch(`./api/reward/history/${window.localStorage.getItem('user-id')}`)
+    					fetch(`./api/reward/history/${window.localStorage.getItem('userid')}`)
         					.then(res => res.json())
         					.then((data) => {
         						this.setState({ consumerRewards: data.data});
@@ -182,7 +182,7 @@ class UserDashboard extends Component{
     }
 
     componentDidMount() {
-    	fetch(`./api/account/${window.localStorage.getItem('user-id')}`)
+    	fetch(`./api/account/${window.localStorage.getItem('userid')}`)
     		.then(res => res.json())
     		.then( (response) => {
     			this.setState({ consumerPoints: response.data.points});
@@ -203,7 +203,7 @@ class UserDashboard extends Component{
     			console.log('Error retrieving account information');
     			console.log(error);
     		});
-        fetch(`./api/posts/${window.localStorage.getItem('user-id')}`)
+        fetch(`./api/posts/${window.localStorage.getItem('userid')}`)
             .then(res => res.json())
             .then((data) => {
                 this.setState({ consumerPosts: data.data });
@@ -212,7 +212,7 @@ class UserDashboard extends Component{
             	console.log('Error retrieving consumer post history');
             	console.log(error);
             });
-        fetch(`./api/reward/history/${window.localStorage.getItem('user-id')}`)
+        fetch(`./api/reward/history/${window.localStorage.getItem('userid')}`)
         	.then(res => res.json())
         	.then((data) => {
         		this.setState({ consumerRewards: data.data});

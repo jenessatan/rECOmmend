@@ -49,8 +49,8 @@ class Login extends Component {
                 if(res.success === true) {
                     // alert(res.message)
                     window.localStorage.setItem('user', this.state.username);
-                    window.localStorage.setItem('user-type', 'consumer');
-                    window.localStorage.setItem('user-id', res.accountid);
+                    window.localStorage.setItem('usertype', 'consumer');
+                    window.localStorage.setItem('userid', res.accountid);
                     //console.log(window.localStorage.getItem('user'));
                     this.setState({isLoggedIn: true})
                 } else {
@@ -73,8 +73,8 @@ class Login extends Component {
                 if(res.success === true) {
                     //console.log(res.data);
                     window.localStorage.setItem('user', this.state.username);
-                    window.localStorage.setItem('user-id',res.data)
-                    window.localStorage.setItem('user-type', 'business');
+                    window.localStorage.setItem('userid',res.data)
+                    window.localStorage.setItem('usertype', 'business');
                     //console.log(window.localStorage.getItem('user'));
                     this.setState({isLoggedIn: true})
                 } else {

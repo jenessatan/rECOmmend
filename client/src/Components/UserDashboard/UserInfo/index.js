@@ -83,7 +83,7 @@ class UserInfo extends Component {
 	}
 	
   	handleSubmit(event) {
-  		fetch(`./api/account/${window.localStorage.getItem('user-id')}`, {
+  		fetch(`./api/account/${window.localStorage.getItem('userid')}`, {
   			headers: {
   				'content-type': 'application/json'},
   			body: JSON.stringify({

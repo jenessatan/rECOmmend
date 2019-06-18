@@ -110,4 +110,48 @@ productController.findBySeller = (req, res) => {
     });
 };
 
+//added not tested
+consumerController.editProduct = (req, res) => {
+  console.log('***payload***');
+  console.log(req.body);
+  const payload = {
+    name: req.body.name,
+    description: req.body.description,
+    imagelink: req.body.imagelink,
+    price: req.body.price
+   };
+  Consumer.editById(req.params.productid, payload)
+    .then((response) => {
+      if (response) {
+        res.send({
+          message: 'Success'
+        });
+      } else {
+        throw new Error(`Unable to update product ${req.params.productid}`);
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({ error: `${error}` });
+    });
+};
+
+//added not tested
+consumerController.deleteProduct = (req, res) => {
+  Consumer.deleteById(req.params.productid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success'
+        });
+      } else {
+        console.log(response);
+        throw new Error(`Unable to delete product ${req.params.productid}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });
+};
+
 module.exports = productController;

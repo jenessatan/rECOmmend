@@ -51,6 +51,7 @@ class Login extends Component {
                     window.localStorage.setItem('user', this.state.username);
                     window.localStorage.setItem('usertype', 'consumer');
                     window.localStorage.setItem('userid', res.accountid);
+                    console.log(res.accountid);
                     //console.log(window.localStorage.getItem('user'));
                     this.setState({isLoggedIn: true})
                 } else {

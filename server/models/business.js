@@ -77,4 +77,9 @@ Business.deleteProduct = (bid, pid) => db.result(
   [bid, pid]
 )
 
+Business.addNewReward = (bid, payload) => db.result(
+  'INSERT INTO offers_reward (rewardname, pointvalue, businessid) VALUES ($1, $2, $3)',
+  [payload.rewardname, payload.points, bid]
+)
+
 module.exports = Business;

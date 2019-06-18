@@ -16,4 +16,6 @@ router.delete('/reward/:accountid', businessController.deleteReward);
 // added
 router.get('/:accountid/avgNumRewards', businessController.avgRewardsRedeemedByBusiness);
 
+router.post('/reward/:accountid', businessController.addNewReward);
+
 module.exports = router;

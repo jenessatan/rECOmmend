@@ -10,7 +10,10 @@ import {
   Table,
   Row,
   Col,
-  Button
+  Button,
+  FormGroup,
+  Input,
+  Form
 } from "reactstrap";
 
 import _ from "lodash";
@@ -25,7 +28,12 @@ class Reward extends Component {
     this.state = {
       avgReward: "",
       total: "",
-      rewards: []
+      rewards: [],
+      isFormVisible: false,
+      newReward: {
+        name: '',
+        points: 0
+      }
     };
   }
 
@@ -69,6 +77,43 @@ fetch(`./api/business/reward/${this.props.id}`)
   .then(response => {
     this.setState({ total: response.data.length, rewards: response.data });
   });
+}
+
+toggle = () => {
+  this.setState({formVisible: !this.state.formVisible})
+}
+
+handleNameChange = (e) => {
+  this.setState({newReward: {...this.state.newReward, name: e.target.value}});
+}
+
+handlePointsChange = (e) => {
+  const points = _.toInteger(e.target.value);
+  this.setState({newReward: {...this.state.newReward, points: points}});
+  console.log(this.state.newReward);
+}
+
+addNewReward = () => {
+  fetch(`./api/business/reward/${this.props.id}`,{
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(this.state.newReward)
+  })
+  .then(()=> {
+    fetch(`./api/business/${this.props.id}/avgNumRewards`)
+    .then(res => res.json())
+    .then(response => {
+      const average = response.data.avg;
+      const avg = _.round(average, 2);
+      this.setState({ avgReward: avg });
+    });
+  fetch(`./api/business/reward/${this.props.id}`)
+    .then(res => res.json())
+    .then(response => {
+      this.setState({ total: response.data.length, rewards: response.data });
+    });
+  })
+  this.toggle();
 }
 
   render() {
@@ -115,8 +160,44 @@ fetch(`./api/business/reward/${this.props.id}`)
         <Card>
           <Navbar>
             <NavbarBrand>Offered Rewards</NavbarBrand>
+            <Button color="link" onClick={this.toggle}>
+              Add New
+            </Button>
           </Navbar>
           <CardBody>
+          {this.state.formVisible? 
+            <Form className="editProfileForm">
+            <Row>
+              <Col>
+                <FormGroup>
+                  <label>Name</label>
+                  <Input
+                    placeholder="Reward Name"
+                    type="text"
+                    onChange={this.handleNameChange}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+            <Col>
+                <FormGroup>
+                  <label>Points</label>
+                  <Input
+                    placeholder="Points"
+                    onChange={this.handlePointsChange}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="text-right">
+                <Button color="success" onClick={this.addNewReward}>
+                  Save Changes
+                </Button>
+              </Col>
+            </Row>
+          </Form> :
             <Table responsive>
               <thead className="text-primary">
                 <tr>
@@ -141,7 +222,7 @@ fetch(`./api/business/reward/${this.props.id}`)
                   </tr>
                 ))}
               </tbody>
-            </Table>
+            </Table>}
           </CardBody>
         </Card>
         <Card>        

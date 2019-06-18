@@ -6,11 +6,11 @@ Consumer.deleteById = id => db.result(
   'DELETE FROM consumer WHERE consumerid = $1', [id]
 );
 
-// TODO: Change to db.tx
-Consumer.editById = (id, payload) => db.result('UPDATE consumer SET name = $/name/, email = $/email/ WHERE consumerid = $/id/',
+Consumer.editById = (id, payload) => db.result('UPDATE consumer SET name = $/name/, email = $/email/, password = $/password/ WHERE consumerid = $/id/',
   {
     name: payload.name,
     email: payload.email,
+    password: payload.password,
     id
   });
 

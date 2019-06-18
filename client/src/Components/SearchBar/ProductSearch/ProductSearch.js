@@ -1,26 +1,57 @@
 import React, { Component } from 'react';
 import { Col, Row, Button, Form, FormGroup, Label, Input, Container } from 'reactstrap';
-import BusinessSearch from "../BusinessSearch/BusinessSearch";
-import Results from './Results';
+import ProductResults from './ProductResults';
 import '../SearchBar.scss';
 
 const initialState = {
     showAdvanced: false,
     inputValue: '',
-    advancedSearch: {
-        category: '*',
-        sort: 'ASC',
-        columns: ['productname', 'description', 'price', 'imagelink']
-    },
+    category: 'ALL',
+    sort: 'ASC',
+    showProductName: true,
+    showDescription: true,
+    showPrice: true,
     results: [],
+    count: 0,
 };
 
 class ProductSearch extends Component{
     state = initialState;
 
-    onChange = e => {
+    inputOnChange = e => {
         this.setState({inputValue: e.target.value});
-        console.log(this.state.inputValue);
+    };
+
+    categoryOnChange = e => {
+        this.setState({category: e.target.value});
+    };
+
+    sortOnChange = e => {
+        this.setState({sort: e.target.value});
+    };
+
+    handleProductName = e => {
+        if (this.state.showProductName) {
+            this.setState({showProductName: false});
+        } else {
+            this.setState({showProductName: true});
+        }
+    };
+
+    handleDescription = e => {
+        if (this.state.showDescription) {
+            this.setState({showDescription: false});
+        } else {
+            this.setState({showDescription: true});
+        }
+    };
+
+    handlePrice = e => {
+        if (this.state.showPrice) {
+            this.setState({showPrice: false});
+        } else {
+            this.setState({showPrice: true});
+        }
     };
 
     handleToggle = () => {
@@ -32,8 +63,51 @@ class ProductSearch extends Component{
     };
 
     handleSubmit = () => {
-        console.log(this.state.inputValue);
-        console.log(this.state.advancedSearch);
+        const displayString = [];
+        if (this.state.showProductName) {
+            displayString.push('name');
+        }
+        if (this.state.showDescription) {
+            displayString.push('description');
+        }
+        if (this.state.showPrice) {
+            displayString.push('price')
+        }
+        if (this.state.category === "ALL") {
+            const advancedSearch = {
+                input: this.state.inputValue,
+                columns: displayString.join(','),
+                sort: this.state.sort,
+            };
+            fetch('./api/products/results', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(advancedSearch)
+            })
+              .then(res => res.json())
+              .then((response) => {
+                  this.setState({ results: response.data });
+              })
+              .catch(console.log);
+        } else {
+            const advancedSearch = {
+                input: this.state.inputValue,
+                category: this.state.category,
+                columns: displayString.join(','),
+                sort: this.state.sort,
+            };
+            fetch('./api/products/advresults', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(advancedSearch)
+            })
+              .then(res => res.json())
+              .then((response) => {
+                  this.setState({ results: response.data });
+              })
+              .catch(console.log);
+        }
+        // TODO: handling for no results
     };
 
     render() {
@@ -45,7 +119,7 @@ class ProductSearch extends Component{
                             <Input
                                 type="text"
                                 placeholder="Get rECOmmendations for..."
-                                onChange={e => this.onChange(e)}
+                                onChange={e => this.inputOnChange(e)}
                             />
                             <div>
                                 <Button
@@ -64,8 +138,8 @@ class ProductSearch extends Component{
                                     <Col>
                                         <FormGroup>
                                             <Label>Product Category</Label>
-                                            <Input type="select">
-                                                <option value="*">All Products</option>
+                                            <Input type="select" onChange={e => this.categoryOnChange(e)}>
+                                                <option value="ALL">All Categories</option>
                                                 <option value="CAT1">Fashion</option>
                                                 <option value="CAT4">Home Goods</option>
                                                 <option value="CAT8">Organic</option>
@@ -80,9 +154,9 @@ class ProductSearch extends Component{
                                     <Col>
                                         <FormGroup>
                                             <Label>Sort By</Label>
-                                            <Input type="select">
-                                                <option>Price Ascending</option>
-                                                <option>Price Descending</option>
+                                            <Input type="select" onChange={e => this.sortOnChange(e)}>
+                                                <option value="ASC">Price Ascending</option>
+                                                <option value="DESC">Price Descending</option>
                                             </Input>
                                         </FormGroup>
                                     </Col>
@@ -92,28 +166,28 @@ class ProductSearch extends Component{
                                         <Label className="check-label">Display</Label>
                                         <FormGroup check inline>
                                             <Label check className="check-label">
-                                                <Input type="checkbox" />Product Photo
+                                                <Input type="checkbox" defaultChecked='true' disabled />Product Photo
                                             </Label>
                                             <Label check className="check-label">
-                                                <Input type="checkbox" />Name
+                                                <Input type="checkbox" defaultChecked='true' onChange = {e => this.handleProductName(e)}/>Name
                                             </Label>
                                             <Label check className="check-label">
-                                                <Input type="checkbox" />Description
+                                                <Input type="checkbox" defaultChecked='true' onChange={e => this.handleDescription(e)}/>Description
                                             </Label>
                                             <Label check className="check-label">
-                                                <Input type="checkbox" />Price
+                                                <Input type="checkbox" defaultChecked='true' onChange={e => this.handlePrice(e)}/>Price
                                             </Label>
                                         </FormGroup>
                                     </Col>
                                 </Row>
-                                <BusinessSearch/>
                             </div>
                         </div>
                     </FormGroup>
                 </Form>
                 <div className='results'>
+                    Returned {this.state.results.length} results out of {this.state.count}
                     <Row fluid className='featuredRow'>
-                        <Results results={this.state.results}/>
+                        <ProductResults results={this.state.results}/>
                     </Row>
                 </div>
             </Container>
@@ -124,9 +198,17 @@ class ProductSearch extends Component{
         fetch('./api/products')
             .then(res => res.json())
             .then((data) => {
+                console.log(data.data);
                 this.setState({ results: data.data });
             })
             .catch(console.log);
+
+        fetch('./api/products/count')
+          .then(res => res.json())
+          .then((data) => {
+              this.setState({count: data.data.count});
+          })
+          .catch(console.log);
     }
 }
 

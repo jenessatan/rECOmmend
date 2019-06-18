@@ -39,7 +39,6 @@ class Product extends Component {
         this.setState({ total: response.data.length, products: response.data });
       });
   }
-  
 
   toggle = () => {
     this.setState({formVisible: !this.state.formVisible})
@@ -100,13 +99,13 @@ class Product extends Component {
             <Button color="link" onClick={this.toggle}>
               Add New
             </Button>
-            {this.state.formVisible? 
+            {this.state.formVisible?
               <hr className="my-2" style={{ width: "100%" }} /> :
-              < ></>
+              <div/>
           }
           </Navbar>
           <CardBody>
-            {this.state.formVisible? 
+            {this.state.formVisible?
             <Form className="editProfileForm">
             <Row>
               <Col>

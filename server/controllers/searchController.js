@@ -2,6 +2,76 @@ const Search = require('../models/search');
 
 const searchController = {};
 
+searchController.getNumberOfBusinesses = (req, res) => {
+	Search.getNumberOfBusinesses()
+		.then((response) => {
+			if (response) {
+				res.json({
+					message: 'Success',
+					data: response,
+				});
+			} else {
+				throw new Error('Unable to get business count');
+			}
+		})
+		.catch((err) => {
+			res.status(500).json({ error: `${err}` });
+		});
+};
+
+searchController.findAllBusinesses = (req, res) => {
+	Search.findAllBusinesses()
+		.then((response) => {
+			res.json({
+				message: 'Success',
+				data: response});
+		})
+		.catch((error) => {
+			console.log('Error getting count businesses');
+			res.status(500).json({error: error});
+		});
+};
+
+searchController.findBusinessAllCertifications = (req,res) => {
+	Search.findBusinessAllCertifications()
+		.then((response) => {
+			res.json({
+				message: 'Success',
+				data: response});
+		})
+		.catch((error) => {
+			console.log('Error retrieving businesses');
+			res.status(500).json({error: error});
+		});
+};
+
+searchController.findBusinessByCertification = (req, res) => {
+	if (req.params.cert==='all') {
+		Search.findBusinessAllCertifications()
+		.then((response) => {
+			res.json({
+				message: 'Success',
+				data: response});
+		})
+		.catch((error) => {
+			console.log('Error searching businesses by certification');
+			res.status(500).json({error: error});
+		});
+	}
+	else {
+		Search.findBusinessByCertification(req.params.cert)
+		.then((response) => {
+			res.json({
+				message: 'Success',
+				data: response});
+			})
+			.catch((error) => {
+			console.log('Error searching businesses by certification');
+			res.status(500).json({error: error});
+		});
+	}
+};
+
 // TODO: Might want to find a better way to handle account not found
 
 searchController.findBusiness = (req, res) => {
@@ -47,7 +117,6 @@ searchController.findAllProducts = (req, res) => {
             res.status(500).json({ error: `${err}`});
         });
 };
-
 
 searchController.findProduct = (req, res) => {
 //	console.log('***payload***');

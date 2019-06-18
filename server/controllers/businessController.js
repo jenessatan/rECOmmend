@@ -80,6 +80,24 @@ businessController.deleteReward = (req, res) => {
     });
 };
 
+businessController.deleteProduct = (req, res) => {
+  Business.deleteProduct(req.params.accountid, req.body.productid)
+    .then((response) => {
+      if (response.rowCount === 1) {
+        res.json({
+          message: 'Success'
+        });
+      } else {
+        console.log(response);
+        throw new Error(`Unable to delete account ${req.params.accountid}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });
+};
+
 businessController.login = (req, res) => {
   console.log(req.body.email);
   Business.login(req.body.email, req.body.password)

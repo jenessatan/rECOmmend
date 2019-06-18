@@ -65,6 +65,11 @@ Business.redeemedRewards = id => db.result(
 Business.deleteReward = (id, name) => db.result(
   'DELETE from offers_reward WHERE businessid= $1 AND rewardname= $2',
   [id, name]
+);
+
+Business.deleteProduct = (bid, pid) => db.result(
+  'DELETE FROM sells WHERE businessid=$1 AND productid=$2',
+  [bid, pid]
 )
 
 module.exports = Business;

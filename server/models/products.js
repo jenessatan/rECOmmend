@@ -8,11 +8,15 @@ Products.findByCategory = category => db.query(
   [category]
 );
 
+Products.findByName = (payload) => {
+  const { columns, input, sort } = payload;
+  const queryString = `SELECT ${columns} FROM products WHERE name ILIKE '%${input}%' GROUP BY productID ORDER BY price ${sort}`;
+  return db.result(queryString);
+};
+
 Products.findByCategoryAndName = (payload) => {
-  console.log(payload, 'model');
-  const { columns, input, category } = payload;
-  const queryString = `SELECT ${columns}, COUNT(*) FROM products WHERE name LIKE '%${input}%' AND ProductID in (SELECT ProductID from has_prodcat WHERE prodcatID = '${category}') GROUP BY productID`;
-  console.log(queryString);
+  const { columns, input, category, sort } = payload;
+  const queryString = `SELECT ${columns} FROM products WHERE name ILIKE '%${input}%' AND ProductID in (SELECT ProductID from has_prodcat WHERE prodcatID = '${category}') GROUP BY productID ORDER BY price ${sort}`;
   return db.result(queryString);
 };
 

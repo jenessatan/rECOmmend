@@ -6,9 +6,13 @@ router.get('/', searchController.findAllProducts);
 
 router.get('/category', productController.findByCategory);
 
-router.post('/results', productController.findByCategoryAndName);
+router.post('/results', productController.findByName);
+
+router.post('/advresults', productController.findByCategoryAndName);
 
 router.get('/soldby', productController.findBySeller);
+
+router.get('/count', productController.getNumberOfProducts);
 
 //added
 router.post('/new/:businessId', productController.addNewProduct);

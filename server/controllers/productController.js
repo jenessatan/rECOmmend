@@ -47,6 +47,23 @@ productController.addNewProduct = (req, res) => {
     });
 };
 
+productController.getNumberOfProducts = (req, res) => {
+  Products.getNumberOfProducts()
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response,
+        });
+      } else {
+        throw new Error('Unable to get product count');
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ error: `${err}` });
+    });
+};
+
 productController.findByCategory = (req, res) => {
   Products.findByCategory(req.body.category)
     .then((products) => {
@@ -54,6 +71,27 @@ productController.findByCategory = (req, res) => {
         res.json({
           success: !!products,
           data: products
+        });
+      } else {
+        res.json({
+          success: !!products,
+          data: 'Data unavailable'
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err });
+    });
+};
+
+productController.findByName = (req, res) => {
+  Products.findByName(req.body)
+    .then((products) => {
+      if (products && products.rows.length > 0) {
+        res.json({
+          success: !!products,
+          data: products.rows
         });
       } else {
         res.json({

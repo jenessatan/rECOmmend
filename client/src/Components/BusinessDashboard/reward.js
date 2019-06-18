@@ -9,11 +9,14 @@ import {
   NavbarBrand,
   Table,
   Row,
-  Col
+  Col,
+  Button
 } from "reactstrap";
 
 import _ from "lodash";
-import RedeemedReward from './redeemedreward'
+import RedeemedReward from './redeemedreward';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 class Reward extends Component {
   constructor(props) {
@@ -40,6 +43,33 @@ class Reward extends Component {
         this.setState({ total: response.data.length, rewards: response.data });
       });
   }
+
+  editReward = (name) => {
+    console.log('editing: ', name)
+  }
+
+  deleteReward = (name) => {
+    console.log('deleting: ', name);
+    fetch(`./api/business/reward/${this.props.id}`,  {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name
+      })
+  })
+  fetch(`./api/business/${this.props.id}/avgNumRewards`)
+  .then(res => res.json())
+  .then(response => {
+    const average = response.data.avg;
+    const avg = _.round(average, 2);
+    this.setState({ avgReward: avg });
+  });
+fetch(`./api/business/reward/${this.props.id}`)
+  .then(res => res.json())
+  .then(response => {
+    this.setState({ total: response.data.length, rewards: response.data });
+  });
+}
 
   render() {
     return (
@@ -92,6 +122,7 @@ class Reward extends Component {
                 <tr>
                   <th>Name</th>
                   <th>Points</th>
+                  <th> </th>
                 </tr>
               </thead>
               <tbody>
@@ -99,6 +130,14 @@ class Reward extends Component {
                   <tr key={"reward" + idx}>
                     <td>{val.rewardname}</td>
                     <td>{val.pointvalue}</td>
+                    <td className='text-right'>
+                      {/* <Button className="btn-round btn-icon btn-icon-mini btn-neutral" color="info" onClick={() => {this.editReward(val.rewardname)}}>
+                        <FontAwesomeIcon icon={faEdit} />
+                      </Button> */}
+                      <Button className="btn-round btn-icon btn-icon-mini btn-neutral" color="danger" onClick={()=> {this.deleteReward(val.rewardname)}}>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </Button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

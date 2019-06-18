@@ -149,7 +149,7 @@ productController.findBySeller = (req, res) => {
 };
 
 //added not tested
-consumerController.editProduct = (req, res) => {
+productController.editProduct = (req, res) => {
   console.log('***payload***');
   console.log(req.body);
   const payload = {
@@ -158,7 +158,7 @@ consumerController.editProduct = (req, res) => {
     imagelink: req.body.imagelink,
     price: req.body.price
    };
-  Consumer.editById(req.params.productid, payload)
+  Products.editById(req.params.productid, payload)
     .then((response) => {
       if (response) {
         res.send({
@@ -174,8 +174,8 @@ consumerController.editProduct = (req, res) => {
 };
 
 //added not tested
-consumerController.deleteProduct = (req, res) => {
-  Consumer.deleteById(req.params.productid)
+productController.deleteProduct = (req, res) => {
+  Products.deleteById(req.params.productid)
     .then((response) => {
       if (response) {
         res.json({
@@ -189,6 +189,26 @@ consumerController.deleteProduct = (req, res) => {
     .catch((err) => {
       console.log(err);
       res.status(500).json({ error: `${err}` });
+    });
+};
+
+//added
+productController.getBusinessByProduct = (req, res) => {
+  Products.getBusinessByProduct(req.params.productid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response.rows,
+        });
+      } else {
+        console.log(response);
+        throw new Error(`Unable to find seller for ${req.params.productid}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ err });
     });
 };
 

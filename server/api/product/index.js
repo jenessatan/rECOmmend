@@ -22,6 +22,9 @@ router.patch('/:productid', productController.editProduct);
 //added not tested
 router.delete('/:productid', productController.deleteProduct);
 
+//added 
+router.get('/business/:productid', productController.getBusinessByProduct);
+
 router.post('/', (req, res)=> {
 	return res.send('test add new product');
 });

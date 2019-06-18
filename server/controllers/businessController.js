@@ -15,7 +15,6 @@ businessController.findById = (req, res) => {
       }
     })
     .catch((err) => {
-  	console.log('error message');
       console.log(err);
       res.status(500).json({ error: `${err}` });
     });
@@ -68,7 +67,8 @@ businessController.login = (req, res) => {
       if (business) {
         res.json({
           success: !!business,
-          message: `Successfully logged in for ${business.email}`
+          message: `Successfully logged in for ${business.email}`,
+          data: business.businessid
         });
       } else {
         res.json({
@@ -83,4 +83,93 @@ businessController.login = (req, res) => {
     });
 };
 
+businessController.getCert = (req, res) => {
+  Business.getCert(req.params.accountid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response.rows
+        });
+      } else {
+        throw new Error(`Account ${req.params.accountid} not found`);
+      }
+    })
+    .catch((err) => {
+      console.log('error message');
+    });
+};
+
+businessController.getReward = (req, res) => {
+  Business.getReward(req.params.accountid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response.rows
+        });
+      } else {
+        throw new Error(`Account ${req.params.accountid} not found`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+// added
+businessController.avgRewardsRedeemedByBusiness = (req, res) => {
+  Business.avgRewardsRedeemed(req.params.accountid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response
+        });
+      } else {
+        throw new Error('Unable to find reward history');
+      }
+    })
+    .catch((err) => {
+      console.log('error message');
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });
+};
+
+businessController.getProduct = (req, res) => {
+  Business.getProduct(req.params.accountid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response.rows
+        });
+      } else {
+        throw new Error(`Account ${req.params.accountid} not found`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });
+};
+
+businessController.redeemedRewards = (req, res) => {
+  Business.redeemedRewards(req.params.accountid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response.rows
+        });
+      } else {
+        throw new Error(`Account ${req.params.accountid} not found`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });
+};
 module.exports = businessController;

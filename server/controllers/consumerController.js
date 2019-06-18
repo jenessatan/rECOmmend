@@ -24,14 +24,14 @@ consumerController.findById = (req, res) => {
 };
 
 consumerController.editById = (req, res) => {
+  console.log('***payload***');
+  console.log(req.body);
   const payload = {
     name: req.body.name,
-    email: req.body.email,
-    password: req.body.password
+    email: req.body.email
 	 };
   Consumer.editById(req.params.accountid, payload)
     .then((response) => {
-      console.log(response);
       if (response.rowCount === 1) {
         res.send({
           message: 'Success'
@@ -41,9 +41,7 @@ consumerController.editById = (req, res) => {
       }
     })
     .catch((error) => {
-      return error.code==='23505' ?
-      	res.status(500).json({error: 'Email already in use'}) :
-      	res.status(500).json({ error: `Internal server error` });
+      res.status(500).json({ error: `${error}` });
     });
 };
 
@@ -73,7 +71,7 @@ consumerController.login = (req, res) => {
         res.json({
           success: !!consumers,
           message: `Successfully logged in for ${consumers.email}`,
-          accountid: consumers.consumerid
+          data: consumers.consumerid
         });
       } else {
         res.json({
@@ -86,6 +84,46 @@ consumerController.login = (req, res) => {
       console.log(err);
       res.status(500).json({ err });
     });
+};
+
+//added
+consumerController.avgNumRewardsRedeemed = (req, res) => {
+  Consumer.avgNumRewardsRedeemed()
+    .then((response) => {
+    if (response) {
+      res.json({
+          message: 'Success',
+          data: response
+      });
+      } else {
+        throw new Error(`Query failed`);
+      }
+    })
+    .catch((err) => {
+    console.log('error message');
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });  
+}
+
+//added
+consumerController.numRewardsRedeemed = (req, res) => {
+  Consumer.numRewardsRedeemed(req.params.accountid)
+    .then((response) => {
+      if (response) {
+        res.json({
+          message: 'Success',
+          data: response
+        });
+      } else {
+        console.log(response);
+        throw new Error(`Unable to access reward history for account ${req.params.accountid}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });  
 };
 
 module.exports = consumerController;

@@ -10,12 +10,22 @@ Search.findProductAnd = (id, payload) => {
 };
 
 Search.findAllProducts = () => {
-	return db.result('SELECT * from products');
+	return db.result(
+		'SELECT * from products ORDER BY price ASC'
+	);
+};
+
+Search.getNumberOfBusinesses = () => db.one(`SELECT COUNT(*) FROM business`);
+
+Search.findAllBusinesses = () => {
+	return db.result(`SELECT * FROM business`);
+	//, has_cert hc WHERE b.businessId = hc.businessId`
 };
 
 Search.findBusinessAllCertifications = () => {
 	return db.result(
-		`SELECT * FROM has_cert AS hc
+		`SELECT DISTINCT businessid 
+		FROM has_cert AS hc
 		 WHERE NOT EXISTS(
 		 (SELECT certid FROM certification)
 		 EXCEPT
@@ -30,6 +40,6 @@ Search.findBusinessByCertification = (cert) => {
 		AND business.businessid = has_cert.businessid
 		AND has_cert.certid = certification.certid
 		AND has_cert.certid = $1`, [cert]);
-}; 
+};
 
 module.exports = Search;

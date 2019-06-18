@@ -15,6 +15,8 @@ import {
   FormGroup,
   Input
 } from "reactstrap";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {faEdit, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 class Product extends Component {
   constructor(props) {
@@ -77,10 +79,27 @@ class Product extends Component {
     this.toggle();
   }
 
+  deleteProduct = (productid) => {
+    fetch(`./api/business/product/${this.props.id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({productid})
+    })
+    .then(() => {
+      fetch(`./api/business/product/${this.props.id}`)
+      .then(res => res.json())
+      .then(response => {
+        this.setState({ total: response.data.length, products: response.data });
+      });
+    })
+  }
+
   render() {
     return (
       <CardDeck>
-        <Card className="col-sm-2">
+        <Col className="col-sm-2 stackedCol flex-column">
+          <Row style={{ marginBottom: "10pt", height: "48%" }}>
+        <Card style={{margin:'0'}}>
           <Navbar>
             <NavbarBrand>Product Overview</NavbarBrand>
             <hr className="my-2" style={{ width: "100%" }} />
@@ -94,6 +113,9 @@ class Product extends Component {
             </CardText>
           </CardBody>
         </Card>
+        </Row>
+        <Row style={{ paddingTop: "10pt", height: "48%" }}>
+          </Row></Col>
         <Card>
           <Navbar>
             <NavbarBrand>All Products</NavbarBrand>
@@ -168,14 +190,23 @@ class Product extends Component {
                   <th>Name</th>
                   <th>Price</th>
                   <th>Description</th>
+                  <th> </th>
                 </tr>
               </thead>
               <tbody>
                 {this.state.products.map((val, idx) => (
-                  <tr key={"product" + idx}>
+                  <tr key={val.productid}>
                     <td>{val.name}</td>
                     <td>{val.price}</td>
                     <td>{val.description}</td>
+                    <td className='text-right'>
+                      {/* <Button className="btn-round btn-icon btn-icon-mini btn-neutral" color="info" onClick={() => {this.editReward(val.rewardname)}}>
+                        <FontAwesomeIcon icon={faEdit} />
+                      </Button> */}
+                      <Button className="btn-round btn-icon btn-icon-mini btn-neutral" color="danger" onClick={()=> {this.deleteProduct(val.productid)}}>
+                        <FontAwesomeIcon icon={faTrashAlt} />
+                      </Button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

@@ -38,7 +38,7 @@ Products.addNewProduct = (productId, payload) => db.result(
 );
 
 //added not tested
-Consumer.editById = (id, payload) => db.result(
+Products.editById = (id, payload) => db.result(
   'UPDATE products SET name = $/name/, description = $/description/, imagelink = $/imagelink, price = $/price/ WHERE productid = $/id/',
   {
     name: payload.name,
@@ -49,7 +49,7 @@ Consumer.editById = (id, payload) => db.result(
   });
 
 //added not tested
-Consumer.deleteProduct = id => db.result(
+Products.deleteProduct = id => db.result(
   'DELETE FROM products WHERE productid = $1', [id]
 );
 

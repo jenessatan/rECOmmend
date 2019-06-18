@@ -111,7 +111,7 @@ productController.findBySeller = (req, res) => {
 };
 
 //added not tested
-consumerController.editProduct = (req, res) => {
+productController.editProduct = (req, res) => {
   console.log('***payload***');
   console.log(req.body);
   const payload = {
@@ -120,7 +120,7 @@ consumerController.editProduct = (req, res) => {
     imagelink: req.body.imagelink,
     price: req.body.price
    };
-  Consumer.editById(req.params.productid, payload)
+  product.editById(req.params.productid, payload)
     .then((response) => {
       if (response) {
         res.send({
@@ -136,8 +136,8 @@ consumerController.editProduct = (req, res) => {
 };
 
 //added not tested
-consumerController.deleteProduct = (req, res) => {
-  Consumer.deleteById(req.params.productid)
+productController.deleteProduct = (req, res) => {
+  Products.deleteById(req.params.productid)
     .then((response) => {
       if (response) {
         res.json({

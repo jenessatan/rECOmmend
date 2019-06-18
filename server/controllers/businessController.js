@@ -26,7 +26,8 @@ businessController.editById = (req, res) => {
   console.log(req.body);
   const payload = {
     name: req.body.name,
-    email: req.body.email
+    email: req.body.email,
+    description: req.body.description
 	 };
   Business.editById(req.params.accountid, payload)
     .then((response) => {
@@ -45,6 +46,24 @@ businessController.editById = (req, res) => {
 
 businessController.deleteById = (req, res) => {
   Business.deleteById(req.params.accountid)
+    .then((response) => {
+      if (response.rowCount === 1) {
+        res.json({
+          message: 'Success'
+        });
+      } else {
+        console.log(response);
+        throw new Error(`Unable to delete account ${req.params.accountid}`);
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: `${err}` });
+    });
+};
+
+businessController.deleteReward = (req, res) => {
+  Business.deleteReward(req.params.accountid, req.body.name)
     .then((response) => {
       if (response.rowCount === 1) {
         res.json({

@@ -19,6 +19,7 @@ class ProfileForm extends Component {
     this.state = {
       company: this.props.name,
       email: this.props.email,
+      description: this.props.description,
       deleteModalVisible: false
     };
     this.toggleModal = this.toggleModal.bind(this);
@@ -48,7 +49,8 @@ class ProfileForm extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         name: this.state.company,
-        email: this.state.email
+        email: this.state.email,
+        description: this.state.description
       })
     });
     this.props.toggle();
@@ -61,6 +63,10 @@ class ProfileForm extends Component {
   handleNameChange = e => {
     this.setState({ company: e.target.value });
   };
+
+  handleDescriptionChange = e => {
+    this.setState({description: e.target.value})
+  }
 
   render() {
     return (
@@ -99,7 +105,7 @@ class ProfileForm extends Component {
                     cols="80"
                     defaultValue={this.props.description}
                     placeholder={this.props.description}
-                    disabled
+                    onChange={this.handleDescriptionChange}
                     rows="4"
                     type="textarea"
                   />

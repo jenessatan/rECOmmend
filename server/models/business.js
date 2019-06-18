@@ -7,10 +7,11 @@ Business.deleteById = id => db.result(
 );
 
 // TODO: Change to db.tx
-Business.editById = (id, payload) => db.result('UPDATE business SET name = $/name/, email = $/email/ WHERE businessid = $/id/',
+Business.editById = (id, payload) => db.result('UPDATE business SET name = $/name/, email = $/email/, description = $/description/ WHERE businessid = $/id/',
   {
     name: payload.name,
     email: payload.email,
+    description: payload.description,
     id
   });
 
@@ -60,5 +61,10 @@ Business.redeemedRewards = id => db.result(
   'SELECT rewardname, COUNT(*) FROM redeems_reward WHERE businessid = $1 GROUP BY rewardname',
   [id]
 );
+
+Business.deleteReward = (id, name) => db.result(
+  'DELETE from offers_reward WHERE businessid= $1 AND rewardname= $2',
+  [id, name]
+)
 
 module.exports = Business;

@@ -40,7 +40,6 @@ class Product extends Component {
       });
   }
 
-
   toggle = () => {
     this.setState({formVisible: !this.state.formVisible})
   }

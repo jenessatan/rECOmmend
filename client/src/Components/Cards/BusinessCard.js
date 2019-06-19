@@ -1,14 +1,20 @@
 import React, {Component} from 'react';
-import { Button, Card, CardTitle, CardText } from 'reactstrap';
+import { Button, Card, CardTitle, CardSubtitle, CardBody } from 'reactstrap';
+import elephantlogo from '../../Assets/products/elephantlogo.png';
 
 class BusinessCard extends Component {
   render() {
     return (
-          <Card body>
-            <CardTitle>{this.props.name}</CardTitle>
-            <CardText>{this.props.description}</CardText>
-            <a href={this.props.url}>Website</a>
+      <div>
+          <Card>
+            <CardBody height="">
+              <img width="100%" src={elephantlogo} alt="Card image" />
+              <CardTitle className='cardPostTitle'>{this.props.name} </CardTitle>
+              <CardSubtitle className='cardPostSubtitle'>{this.props.description}</CardSubtitle>
+              <Button color="link"><a href={this.props.url}>Website</a></Button>
+            </CardBody>
           </Card>
+      </div>
     )
   }
 }

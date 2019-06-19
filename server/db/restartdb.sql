@@ -232,6 +232,7 @@ INSERT INTO business VALUES
 INSERT INTO sells (ProductID, BusinessID) VALUES
 	('PRODID1', 'BID4'),
 	('PRODID2', 'BID5'),
+		('PRODID2', 'BID2'),
 	('PRODID3', 'BID3'),
 	('PRODID4', 'BID4'),
 	('PRODID5', 'BID2'),

@@ -11,7 +11,7 @@ Search.findProductAnd = (id, payload) => {
 
 Search.findAllProducts = () => {
 	return db.result(
-		'SELECT * from products ORDER BY price ASC'
+		'SELECT * FROM products ORDER BY price ASC'
 	);
 };
 

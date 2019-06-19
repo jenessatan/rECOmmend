@@ -58,7 +58,7 @@ Products.deleteProduct = id => db.result(
 );
 
 Products.getBusinessByProduct = id => db.result(
-  'SELECT name FROM business WHERE BusinessID IN (SELECT BusinessID FROM sells WHERE ProductID = $1)',[id]
+  'SELECT b.name FROM business b, sells s WHERE s.productID = $1 AND s.businessID = b.businessID ', [id]
 );
 
 module.exports = Products;

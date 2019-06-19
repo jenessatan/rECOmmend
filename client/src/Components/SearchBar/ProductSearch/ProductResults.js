@@ -3,12 +3,15 @@ import { Col, Row } from 'reactstrap';
 import ProductItem from "../../Cards/ProductItem";
 
 const ProductResults = ({ results }) => {
+	console.log(results);
     return (
         <Row >
           {results.map((result) => (
             <Col sm={3}>
+            
               <ProductItem
-                    image={result.imageLink}
+              		productid={result.productid}
+                    image={result.imagelink}
                     title={result.name}
                     description={result.description}
                     price={result.price}/>

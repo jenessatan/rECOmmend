@@ -67,9 +67,9 @@ class ProductItem extends Component {
             <Button color="secondary" onClick={this.toggleModal}>Close</Button>
           </ModalFooter>
         </Modal>
-      <Card>
+      <Card style={{minHeight:"15%",maxHeight:"15%", bottomMargin:"100px"}}>
         <CardImg top width="100%" src={imageDict[this.props.productid]} alt="Card image" />
-        <CardBody height="">
+        <CardBody>
           <CardTitle className='cardPostTitle productTitle'>{this.props.title}  {'- $'+ this.props.price} </CardTitle>
           <CardSubtitle className='cardPostSubtitle productDescription'>{this.props.description}</CardSubtitle>
           <Button color="link" onClick={this.toggleModal}>See Retailers</Button>

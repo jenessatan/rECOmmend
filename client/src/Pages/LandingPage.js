@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container, Col, Row} from 'reactstrap';
+import {Container, Col, Row, CardDeck} from 'reactstrap';
 import Hero from '../Components/Hero';
 import ProductItem from '../Components/Cards/ProductItem';
 import '../App.scss';
@@ -11,7 +11,7 @@ function LandingPage() {
       <div className='featured'>
         Featured Products
       </div>
-      <Row fluid className='featuredRow'>
+      <CardDeck fluid className='featuredRow'>
         <Col sm={3}>
           <ProductItem productid={'PRODID2'} title={'Mini Arc Reactor'} price={3000}/>
         </Col>
@@ -24,7 +24,7 @@ function LandingPage() {
         <Col sm={3}>
           <ProductItem productid={'PRODID5'} title={'KarTent Home'} price={150}/>
         </Col>
-      </Row>
+      </CardDeck>
     </Container>
   );
 }

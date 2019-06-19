@@ -1,11 +1,11 @@
 import React from "react";
-import { Col, Row } from 'reactstrap';
+import { Col, CardDeck, Row } from 'reactstrap';
 import ProductItem from "../../Cards/ProductItem";
 
 const ProductResults = ({ results }) => {
-	console.log(results);
     return (
-        <Row >
+      <Row style={{width:"100%"}}>
+        <CardDeck >
           {results.map((result) => (
             <Col sm={3}>
               <ProductItem
@@ -17,7 +17,8 @@ const ProductResults = ({ results }) => {
                     id={result.productid}/>
             </Col>
               ))}
-        </Row>
+        </CardDeck>
+      </Row>
     )
 };
 

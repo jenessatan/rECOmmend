@@ -5,34 +5,32 @@ class RewardsHistory extends Component {
 	constructor(props) {
 		super(props);
 	}
-	
+
 	static defaultProps = {
 		history: []
-	}
-	
+	};
+
 	state = {
 		history: this.props.history
-	}
-	
+	};
+
 	static getDerivedStateFromProps(nextProps, prevState){
 		if (nextProps.history !== prevState.history) {
 
 			return nextProps;
 		}
 	}
-	
+
 	static componentDidUpdate(prevProps, prevState) {
-		console.log('compontnupdated');
 		if (prevProps.history !== this.props.history) {
 		this.setState({history: this.props.history});
 		}
-	}	
-	
+	}
+
 	componentWillReceiveProps(props) {
-		console.log('willreceive');
 		this.setState({history: this.props.history});
 	}
-	
+
 	render() {
 		if (this.state.history.length < 1) {
 			return (<h5> You have not redeemed any rewards yet</h5>);
@@ -57,7 +55,7 @@ class RewardsHistory extends Component {
 			</tbody>
 		</Table>
 		);
-	}	
+	}
 }
 
 export default RewardsHistory;

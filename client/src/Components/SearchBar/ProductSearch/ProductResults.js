@@ -8,9 +8,8 @@ const ProductResults = ({ results }) => {
         <Row >
           {results.map((result) => (
             <Col sm={3}>
-            
               <ProductItem
-              		productid={result.productid}
+              		  productid={result.productid}
                     image={result.imagelink}
                     title={result.name}
                     description={result.description}
@@ -21,18 +20,5 @@ const ProductResults = ({ results }) => {
         </Row>
     )
 };
-
-/*const ProductBusiness = ({ results }) => {
-    return(
-      <Row>
-        {results.map(() => (
-          <Col sm={3}>
-            <ProductItem
-                business1={result.name}/>
-        </Col>
-          ))}
-      </Row>
-      )
-};*/
 
 export default ProductResults;

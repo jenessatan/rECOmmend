@@ -10,22 +10,15 @@ Products.findByCategory = category => db.query(
 
 Products.findByName = (payload) => {
   const { columns, input, sort } = payload;
-  const queryString = `SELECT ${columns} FROM products WHERE name ILIKE '%${input}%' GROUP BY productID ORDER BY price ${sort}`;
+  const queryString = `SELECT productID, ${columns} FROM products WHERE name ILIKE '%${input}%' GROUP BY productID ORDER BY price ${sort}`;
   return db.result(queryString);
 };
 
 Products.findByCategoryAndName = (payload) => {
   const { columns, input, category, sort } = payload;
-  const queryString = `SELECT ${columns} FROM products WHERE name ILIKE '%${input}%' AND ProductID in (SELECT ProductID from has_prodcat WHERE prodcatID = '${category}') GROUP BY productID ORDER BY price ${sort}`;
+  const queryString = `SELECT productID, ${columns} FROM products WHERE name ILIKE '%${input}%' AND ProductID in (SELECT ProductID from has_prodcat WHERE prodcatID = '${category}') GROUP BY productID ORDER BY price ${sort}`;
   return db.result(queryString);
 };
-
-// Products.findByName = (payload) => {
-//   return `SELECT $1 FROM products WHERE name LIKE '%$2%'`,
-//   {
-//
-//   }
-// };
 
 Products.findBySeller = business => db.query(
   'SELECT * FROM products WHERE ProductID In (SELECT ProductID FROM sells WHERE BusinessID IN (SELECT BusinessID from business WHERE name = $1))',

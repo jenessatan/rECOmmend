@@ -25,30 +25,6 @@ function LandingPage() {
           <ProductItem productid={'PRODID5'} title={'KarTent Home'} price={150}/>
         </Col>
       </Row>
-      {/*<hr className="my-2" style={{width: '90%'}} />*/}
-      {/*<div className='featured'>*/}
-      {/*  Featured Posts*/}
-      {/*</div>*/}
-      {/*<Row fluid className='featuredRow'>*/}
-      {/*  <Col sm='2'>*/}
-      {/*    <PostItem title='Test Feature' author='Peter Parker' />*/}
-      {/*  </Col>*/}
-      {/*  <Col sm='2'>*/}
-      {/*    <PostItem title='Test Feature' author='Peter Parker' />*/}
-      {/*  </Col>*/}
-      {/*  <Col sm='2'>*/}
-      {/*    <PostItem title='Test Feature' author='Peter Parker' />*/}
-      {/*  </Col>*/}
-      {/*  <Col sm='2'>*/}
-      {/*    <PostItem title='Test Feature' author='Peter Parker' />*/}
-      {/*  </Col>*/}
-      {/*  <Col sm='2'>*/}
-      {/*    <PostItem title='Test Feature' author='Peter Parker' />*/}
-      {/*  </Col>*/}
-      {/*  <Col sm='2'>*/}
-      {/*    <PostItem title='Test Feature' author='Peter Parker' />*/}
-      {/*  </Col>*/}
-      {/*</Row>*/}
     </Container>
   );
 }

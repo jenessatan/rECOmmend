@@ -49,11 +49,6 @@ class ProductItem extends Component {
     }));
   };
 
-  // componentWillReceiveProps(props) {
-  //   console.log('willreceive');
-  //   this.setState({image: this.props.image});
-  // }
-
   render() {
   console.log(this.props.productid);
     return (
@@ -63,7 +58,7 @@ class ProductItem extends Component {
           <ModalBody>
             <p>Sold at: </p>
             <ul>
-            {_.map(this.state.businesses, (val, idx) => 
+            {_.map(this.state.businesses, (val, idx) =>
               <li key={idx}>{val}</li>
               )}
             </ul>

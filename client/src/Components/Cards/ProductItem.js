@@ -6,10 +6,27 @@ import prodid2 from '../../Assets/products/prodid2.jpg';
 import prodid3 from '../../Assets/products/prodid3.jpg';
 import prodid4 from '../../Assets/products/prodid4.jpg';
 import prodid5 from '../../Assets/products/prodid5.jpg';
+import _ from 'lodash';
+
+
 class ProductItem extends Component {
   state = {
-    modal: false
+    modal: false,
+    businesses: []
   };
+
+  componentDidMount() {
+        fetch(`./api/products/business/${this.props.id}`)
+            .then(res => res.json())
+            .then((data) => {
+                console.log(data.data);
+                const business = _.map(data.data, 'name');
+                console.log(business);
+                this.setState({businesses: business});
+                console.log('state', this.state.businesses);
+            })
+            .catch(console.log);
+    }
 
   toggleModal = () => {
     this.setState(prevState => ({
@@ -23,7 +40,12 @@ class ProductItem extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>{this.props.title}</ModalHeader>
           <ModalBody>
-            Sold at:
+            <p>Sold at: </p>
+            <ul>
+            {_.map(this.state.businesses, (val, idx) => 
+              <li key={idx}>{val}</li>
+              )}
+            </ul>
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggleModal}>Close</Button>

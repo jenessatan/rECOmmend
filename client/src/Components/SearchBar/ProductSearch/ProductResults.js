@@ -11,11 +11,25 @@ const ProductResults = ({ results }) => {
                     image={result.imageLink}
                     title={result.name}
                     description={result.description}
-                    price={result.price}/>
+                    price={result.price}
+                    id={result.productid}/>
             </Col>
               ))}
         </Row>
     )
 };
+
+/*const ProductBusiness = ({ results }) => {
+    return(
+      <Row>
+        {results.map(() => (
+          <Col sm={3}>
+            <ProductItem
+                business1={result.name}/>
+        </Col>
+          ))}
+      </Row>
+      )
+};*/
 
 export default ProductResults;

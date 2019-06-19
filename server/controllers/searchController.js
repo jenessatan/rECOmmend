@@ -27,49 +27,82 @@ searchController.findAllBusinesses = (req, res) => {
 				data: response});
 		})
 		.catch((error) => {
-			console.log('Error getting count businesses');
+			console.log('Error getting businesses');
 			res.status(500).json({error: error});
 		});
 };
 
 searchController.findBusinessAllCertifications = (req,res) => {
-	Search.findBusinessAllCertifications()
+	Search.findBusinessAllCertifications(req.body)
 		.then((response) => {
-			res.json({
-				message: 'Success',
-				data: response});
+			if (response && response.rows.length > 0) {
+				res.json({
+					success: !!response,
+					data: response.rows
+				});
+			} else {
+				res.json({
+					success: !!response,
+					data: 'Data unavailable'
+				});
+			}
 		})
-		.catch((error) => {
-			console.log('Error retrieving businesses');
-			res.status(500).json({error: error});
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json({ err });
 		});
 };
 
-searchController.findBusinessByCertification = (req, res) => {
-	if (req.params.cert==='all') {
-		Search.findBusinessAllCertifications()
+searchController.findBusinessByNameAndAnyCertification = (req, res) => {
+	console.log(req.body);
+	Search.findBusinessByNameAndAnyCertification(req.body)
 		.then((response) => {
-			res.json({
-				message: 'Success',
-				data: response});
+			console.log(response);
+			if (response && response.rows.length > 0) {
+				res.json({
+					success: !!response,
+					data: response.rows
+				});
+			} else {
+				res.json({
+					success: !!response,
+					data: 'Data unavailable'
+				});
+			}
 		})
-		.catch((error) => {
-			console.log('Error searching businesses by certification');
-			res.status(500).json({error: error});
+		.catch((err) => {
+			console.log(err);
+			res.status(500).json({ err });
 		});
-	}
-	else {
-		Search.findBusinessByCertification(req.params.cert)
+};
+
+searchController.findBusinessByNameAndCertification = (req, res) => {
+	// if (req.params.cert==='all') {
+	// 	Search.findBusinessAllCertifications()
+	// 	.then((response) => {
+	// 		res.json({
+	// 			message: 'Success',
+	// 			data: response});
+	// 	})
+	// 	.catch((error) => {
+	// 		console.log('Error searching businesses by certification');
+	// 		res.status(500).json({error: error});
+	// 	});
+	// }
+	// else {
+	console.log(req.body);
+		Search.findBusinessByNameAndCertification(req.body)
 		.then((response) => {
+			console.log(response);
 			res.json({
 				message: 'Success',
-				data: response});
+				data: response.rows});
 			})
 			.catch((error) => {
 			console.log('Error searching businesses by certification');
 			res.status(500).json({error: error});
 		});
-	}
+	//}
 };
 
 // TODO: Might want to find a better way to handle account not found

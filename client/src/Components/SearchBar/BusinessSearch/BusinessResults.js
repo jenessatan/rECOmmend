@@ -6,7 +6,7 @@ const BusinessResults = ({ results }) => {
   return (
     <Row>
       {results.map((result) => (
-        <Col sm={6}>
+        <Col sm={3}>
           <BusinessCard
             name={result.name}
             description={result.description}
@@ -14,6 +14,7 @@ const BusinessResults = ({ results }) => {
           />
         </Col>
       ))}
+    <div height='250px'/>
     </Row>
   )
 };

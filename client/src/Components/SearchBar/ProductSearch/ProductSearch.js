@@ -198,7 +198,6 @@ class ProductSearch extends Component{
         fetch('./api/products')
             .then(res => res.json())
             .then((data) => {
-                console.log(data.data);
                 this.setState({ results: data.data });
             })
             .catch(console.log);

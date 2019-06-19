@@ -22,7 +22,7 @@ class BusinessSearch extends Component{
     };
 
     certificationOnChange = e => {
-        this.setState({category: e.target.value});
+        this.setState({certification: e.target.value});
     };
 
     sortOnChange = e => {
@@ -30,10 +30,10 @@ class BusinessSearch extends Component{
     };
 
     handleBusinessName = e => {
-        if (this.state.showProductName) {
-            this.setState({showProductName: false});
+        if (this.state.showBusinessName) {
+            this.setState({showBusinessName: false});
         } else {
-            this.setState({showProductName: true});
+            this.setState({showBusinessName: true});
         }
     };
 
@@ -56,49 +56,70 @@ class BusinessSearch extends Component{
     handleSubmit = () => {
         const displayString = [];
         if (this.state.showBusinessName) {
-            displayString.push('name');
+            displayString.push('business.name');
         }
         if (this.state.showDescription) {
-            displayString.push('description');
+            displayString.push('business.description');
         }
-        if (this.state.showPrice) {
-            displayString.push('price')
-        }
-        if (this.state.category === "ALL") {
+        if (this.state.certification === "ANY") {
+            console.log('any certifications');
             const advancedSearch = {
                 input: this.state.inputValue,
                 columns: displayString.join(','),
                 sort: this.state.sort,
             };
-            fetch('./api/products/results', {
+            console.log(advancedSearch);
+            fetch('./api/search/business/anycert', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(advancedSearch)
             })
               .then(res => res.json())
               .then((response) => {
+                  console.log(response);
                   this.setState({ results: response.data });
               })
               .catch(console.log);
-        } else {
-            const advancedSearch = {
-                input: this.state.inputValue,
-                category: this.state.category,
-                columns: displayString.join(','),
-                sort: this.state.sort,
-            };
-            fetch('./api/products/advresults', {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(advancedSearch)
-            })
-              .then(res => res.json())
-              .then((response) => {
-                  this.setState({ results: response.data });
-              })
-              .catch(console.log);
-        }
-        // TODO: handling for no results
+        } else if (this.state.certification === "ALL") {
+            console.log('all certifications');
+                const advancedSearch = {
+                    input: this.state.inputValue,
+                    columns: displayString.join(','),
+                    sort: this.state.sort,
+                };
+                fetch('./api/search/business/allcerts', {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(advancedSearch)
+                })
+                  .then(res => res.json())
+                  .then((response) => {
+                      console.log(response);
+                      this.setState({ results: response.data });
+                  })
+                  .catch(console.log);
+            } else {
+                console.log('ELSE');
+                const advancedSearch = {
+                    input: this.state.inputValue,
+                    certification: this.state.certification,
+                    columns: displayString.join(','),
+                    sort: this.state.sort,
+                };
+                console.log(JSON.stringify(advancedSearch));
+                fetch('./api/search/business/results', {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(advancedSearch)
+                })
+                  .then(res => res.json())
+                  .then((response) => {
+                      console.log(response);
+                      this.setState({ results: response.data });
+                  })
+                  .catch(console.log);
+            }
+            // TODO: handling for no results
     };
 
 
@@ -131,7 +152,7 @@ class BusinessSearch extends Component{
                                       <FormGroup>
                                           <Label>Business Certification</Label>
                                           <Input type="select" onChange={e => this.certificationOnChange(e)}>
-                                              <option value='ANY'>Any Certification</option>
+                                              <option value="ANY">Any Certification</option>
                                               <option value="CERTID1">Fair Trade Certified</option>
                                               <option value="CERTID2">Climate Commitment Certification</option>
                                               <option value="CERTID3">Global Organic Textile Standard</option>
@@ -179,20 +200,16 @@ class BusinessSearch extends Component{
     }
 
     componentDidMount() {
-        console.log('fetching all businesses');
         fetch('./api/search/business')
           .then(res => res.json())
           .then((data) => {
-              console.log(data.data.rows);
               this.setState({ results: data.data.rows });
           })
           .catch(console.log);
 
-        console.log('fetching number');
         fetch('./api/search/business/count')
           .then(res => res.json())
           .then((data) => {
-              console.log(data.data.count);
               this.setState({ count: data.data.count });
           })
           .catch(console.log);

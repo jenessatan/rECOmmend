@@ -19,27 +19,51 @@ Search.getNumberOfBusinesses = () => db.one(`SELECT COUNT(*) FROM business`);
 
 Search.findAllBusinesses = () => {
 	return db.result(`SELECT * FROM business`);
-	//, has_cert hc WHERE b.businessId = hc.businessId`
 };
 
-Search.findBusinessAllCertifications = () => {
-	return db.result(
-		`SELECT DISTINCT businessid 
+Search.findBusinessAllCertifications = (payload) => {
+	const {columns, sort} = payload;
+	const queryString =
+		`SELECT business.url, business.businessid, ${columns}
+		FROM business
+		WHERE businessid IN (
+		SELECT DISTINCT businessid
 		FROM has_cert AS hc
-		 WHERE NOT EXISTS(
-		 (SELECT certid FROM certification)
-		 EXCEPT
-		 (SELECT certid FROM has_cert WHERE businessid = hc.businessid))`);
+		WHERE NOT EXISTS(
+		(SELECT certid FROM certification)
+		EXCEPT
+		(SELECT certid FROM has_cert WHERE businessid = hc.businessid)))
+		ORDER BY business.name ${sort}`;
+	return db.result(queryString);
 };
 
-Search.findBusinessByCertification = (cert) => {
-	return db.result(
-		`SELECT business.name, business.email, business.description, business.url
-		FROM business, has_cert, certification, businesslocation
-		WHERE business.businessid = businesslocation.businessid
-		AND business.businessid = has_cert.businessid
-		AND has_cert.certid = certification.certid
-		AND has_cert.certid = $1`, [cert]);
+Search.findBusinessByNameAndCertification = (payload) => {
+	const {columns, input, certification, sort} = payload;
+	const queryString =
+		`SELECT business.url, ${columns}  
+		FROM business
+		WHERE (business.name ILIKE '%${input}%' OR business.description ILIKE '%${input}%')
+		AND business.businessid IN (
+		SELECT DISTINCT business.businessid
+		FROM business, has_cert
+		WHERE has_cert.certid = '${certification}'
+		AND business.businessid = has_cert.businessid)
+		ORDER BY business.name ${sort}`;
+	return db.result(queryString)
 };
+
+Search.findBusinessByNameAndAnyCertification = (payload) => {
+	const { columns, input, sort } = payload;
+	console.log(payload);
+	const queryString =
+		`SELECT business.url, business.businessid, ${columns}
+		FROM business
+		WHERE business.name ILIKE '%${input}%' OR business.description ILIKE '%${input}%'
+		GROUP BY business.businessid 
+		ORDER BY business.name ${sort}`;
+	console.log(queryString);
+	return db.result(queryString);
+};
+
 
 module.exports = Search;

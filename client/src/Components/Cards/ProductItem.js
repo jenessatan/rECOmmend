@@ -55,7 +55,6 @@ class ProductItem extends Component {
       <Card>
         <CardImg top width="100%" src={imageDict[this.props.productid]} alt="Card image" />
         <CardBody height="">
-          <CardText>{this.props.image}</CardText>
           <CardTitle className='cardPostTitle productTitle'>{this.props.title}  {'- $'+ this.props.price} </CardTitle>
           <CardSubtitle className='cardPostSubtitle productDescription'>{this.props.description}</CardSubtitle>
           <Button color="link" onClick={this.toggleModal}>See Retailers</Button>

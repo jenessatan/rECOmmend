@@ -17,9 +17,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+if (ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use((req, res) => {
+    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+  });
+}
+
 app.get('/', (req, res) => {
   res.send('This is rECOmmend!');
- });
+});
 
 app.use('/api', require('./api'));
 

@@ -19,7 +19,14 @@ const setDB = () => {
       ssl: true
     });
   } if (process.env.NODE_ENV === 'production') {
-    return pgp(process.env.DATABASE_URL);
+    return pgp({
+      database: process.env.PGDB,
+      port: process.env.PGPORT,
+      host: process.env.PGHOST,
+      user: process.env.PGUSER,
+      password: process.env.PGPASSWORD,
+      ssl: true
+    });
   }
 };
 

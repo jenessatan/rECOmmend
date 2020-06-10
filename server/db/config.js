@@ -15,7 +15,8 @@ const setDB = () => {
       port: process.env.PGPORT,
       host: process.env.PGHOST,
       user: process.env.PGUSER,
-      password: process.env.PGPASSWORD
+      password: process.env.PGPASSWORD,
+      ssl: true
     });
   } if (process.env.NODE_ENV === 'production') {
     return pgp({
@@ -23,7 +24,8 @@ const setDB = () => {
       port: process.env.PGPORT,
       host: process.env.PGHOST,
       user: process.env.PGUSER,
-      password: process.env.PGPASSWORD
+      password: process.env.PGPASSWORD,
+      ssl: true
     });
   }
 };
